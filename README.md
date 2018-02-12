@@ -21,6 +21,8 @@ Execute java -jar target\citizensLoader2b-0.0.1-jar-with-dependencies.jar
 
 Álvaro Cabrero Barros (@espiguinho)
 
+Álvaro González Carracedo (@AlvaroGonzalezC)
+
 
 # Authors 2017
 
