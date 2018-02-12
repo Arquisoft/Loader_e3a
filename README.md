@@ -13,7 +13,7 @@ Execute DDBB\data\startup.bat
 
 Execute mvn package
 
-Execute java -jar java -jar target\Loader_e3a-0.0.1-jar-with-dependencies.jar
+Execute java -jar target\Loader_e3a-0.0.1-jar-with-dependencies.jar
 
 
 # Authors 2018
