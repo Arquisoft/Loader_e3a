@@ -17,7 +17,12 @@ Execute mvn package
 Execute java -jar target\citizensLoader2b-0.0.1-jar-with-dependencies.jar
 
 
-# Authors
+# Authors 2018
+
+Álvaro Cabrero Barros (@espiguinho)
+
+
+# Authors 2017
 
 Herminio García González (@herminiogg)
 
