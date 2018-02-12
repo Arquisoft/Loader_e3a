@@ -210,7 +210,7 @@ public class AplicationTest {
 	@Test
 	public void exceptionXLSX(){
 		ArrayList<Ciudadano> xlsx = new ArrayList<Ciudadano>();
-		String rutaXLSX = "./src/test/java/es/uniovi/asw/test1.xlsx";
+		String rutaXLSX = "./src/test/java/es/uniovi/asw/test.xlsx";
 		Leer.Ciudadanos(xlsx, rutaXLSX);
 	}
 	
