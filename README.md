@@ -16,6 +16,11 @@ Execute mvn package
 
 Execute java -jar target\citizensLoader2b-0.0.1-jar-with-dependencies.jar
 
+# Professors
+
+Herminio García González (@herminiogg)
+
+Jose Emilio Labra Gayo (@labra)
 
 # Authors 2018
 
@@ -25,10 +30,6 @@ Execute java -jar target\citizensLoader2b-0.0.1-jar-with-dependencies.jar
 
 
 # Authors 2017
-
-Herminio García González (@herminiogg)
-
-Jose Emilio Labra Gayo (@labra)
 
 Ignacio Martín Franco (@NachoMartin123)
 
