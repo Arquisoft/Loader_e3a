@@ -22,6 +22,8 @@ Execute java -jar target\Loader_e3a-0.0.1-jar-with-dependencies.jar
 
 Álvaro González Carracedo (@AlvaroGonzalezC)
 
+José Luis Bugallo González (@joseluisbugallo)
+
 
 # Authors 2017
 
