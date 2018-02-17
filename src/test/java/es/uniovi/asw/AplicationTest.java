@@ -31,20 +31,17 @@ public class AplicationTest {
 	public void addCiudadanoTest() {
 		List<Agente> agentes = new ArrayList<Agente>();
 
-		Agente c = new Agente("Pepe", "Garcia", "email@prueba", "dir", "España", "564613I",
-				new Date(1995 - 1900, 2, 25));
-		ciudadanos.add(c);
+		Agente c = new Agente("Pepe", "locprueba", "email@prueba", "identifPrueba", 1);
+		agentes.add(c);
 		BBDD.insertarAgente(agentes);
 
 		Agente cBD = BBDD.obtenerAgente("564613I");
 		assertNotNull(cBD);
 		assertEquals("Pepe", cBD.getNombre());
-		assertEquals("Garcia", cBD.getApellidos());
+		assertEquals("locprueba", cBD.getLocalizacion());
 		assertEquals("email@prueba", cBD.getEmail());
-		assertEquals("dir", cBD.getDireccion());
-		assertEquals("España", cBD.getNacionalidad());
-		assertEquals("564613I", cBD.getDni());
-		assertEquals(new Date(1995 - 1900, 2, 25), cBD.getFecha_nacimiento());
+		assertEquals("identifPrueba", cBD.getIdentificador());
+		
 
 		c.setDireccion("direccion2");
 		c.setEmail("otroemail@.com");
