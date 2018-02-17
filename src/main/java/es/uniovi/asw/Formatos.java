@@ -6,5 +6,5 @@ import dao.Agente;
 
 public interface Formatos {
 
-	public ArrayList<Agente> leerAgentes(ArrayList<Agente> ciudadanos, String ruta);
+	public ArrayList<Agente> leerAgentes(ArrayList<Agente> agentes, String ruta);
 }

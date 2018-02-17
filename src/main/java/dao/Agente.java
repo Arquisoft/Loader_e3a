@@ -7,7 +7,8 @@ public class Agente {
 	private int tipo;
 	private String password;
 
-	public Agente(String nombre, String localizacion, String email, String identificador, int tipo) {
+	public Agente(String nombre, String localizacion,
+			String email, String identificador, int tipo) {
 		super();
 		this.nombre = nombre;
 		this.localizacion = localizacion;

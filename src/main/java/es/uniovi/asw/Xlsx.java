@@ -2,21 +2,19 @@ package es.uniovi.asw;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import dao.Ciudadano;
+import dao.Agente;
 
 public class Xlsx implements Formatos {
 
 	@Override
-	public ArrayList<Ciudadano> leerCiudadanos(ArrayList<Ciudadano> ciudadanos, String ruta) {
+	public ArrayList<Agente> leerAgentes(ArrayList<Agente> agentes, String ruta) {
 		try {
 			FileInputStream file = new FileInputStream(new File(ruta));
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -34,15 +32,12 @@ public class Xlsx implements Formatos {
 				String nombre = row.getCell(0) != null ? row.getCell(0).toString() : null;
 				if (nombre != null && nombre.equals("Nombre"))
 					continue;
-				String fecha = row.getCell(3) != null ? row.getCell(3).toString() : null;
 
-				Date date = new SimpleDateFormat("dd-MMM-yyyy").parse(fecha);
-				java.sql.Date nacimiento = new java.sql.Date(date.getTime());
 
-				Ciudadano ciudadano = new Ciudadano(aux.get(0).toString(), aux.get(1).toString(), aux.get(2).toString(),
-						aux.get(4).toString(), aux.get(5).toString(), aux.get(6).toString(), nacimiento);
+				Agente ciudadano = new Agente(aux.get(0).toString(), aux.get(1).toString(), aux.get(2).toString(),
+						aux.get(4).toString(), Integer.valueOf(aux.get(5).toString()));
 				
-				ciudadanos.add(ciudadano);
+				agentes.add(ciudadano);
 			}
 
 			file.close();
@@ -50,7 +45,8 @@ public class Xlsx implements Formatos {
 		} catch (Exception e) {
 			System.err.println("Error al leer del excel xlsx");
 		}
-		return ciudadanos;
+		return agentes;
 	}
+
 
 }

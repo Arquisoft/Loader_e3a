@@ -22,9 +22,9 @@ public class BBDD {
 		Connection conexion = null;
 		try {
 			DriverManager.registerDriver(new JDBCDriver());
-			String url = "jdbc:hsqldb:file:./DDBB/data/test";
+			//String url = "jdbc:hsqldb:file:./DDBB/data/test";
 			// Descomentar para probar los test en local.
-			// String url = "jdbc:hsqldb:hsql://localhost/";
+			 String url = "jdbc:hsqldb:hsql://localhost/";
 			String user = "SA";
 			String pass = "";
 			conexion = DriverManager.getConnection(url, user, pass);
@@ -40,13 +40,13 @@ public class BBDD {
 	 * @param ciudadanos,
 	 *            lista de ciudadanos a insertar en la base de datos
 	 */
-	public static void insertarCiudadano(List<Agente> agentes) {
+	public static void insertarAgente(List<Agente> agentes) {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
 			sb.append("insert into AGENTE ");
 			sb.append("(nombre, localizacion, email, identificador, tipo, password) ");
-			sb.append("values (?,?,?,?,?,?,?,?)");
+			sb.append("values (?,?,?,?,?,?)");
 			PreparedStatement ps = con.prepareStatement(sb.toString());
 			for (Agente agen : agentes) {
 				ps.setString(1, agen.getNombre());
@@ -70,7 +70,7 @@ public class BBDD {
 	 * @param dni
 	 *            del ciudadano a borrar
 	 */
-	public static void eliminarCiudadano(String dni) {
+	public static void eliminarAgente(String dni) {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
@@ -97,21 +97,19 @@ public class BBDD {
 	 * @param ciudadano
 	 *            a actualizar
 	 */
-	public static void updateCiudadano(Agente ciudadano) {
+	public static void updateAgente(Agente ciudadano) {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
 			sb.append("UPDATE AGENTE "
-					+ "set nombre= ?, apellidos= ?, email= ?, fecha_nacimiento= ?, direccion= ?, nacionalidad= ?"
+					+ "set nombre= ?, localizacion= ?, email= ?, identificador= ?, tipo= ?, password= ?"
 					+ "where dni=?");
 			PreparedStatement ps = con.prepareStatement(sb.toString());
 			ps.setString(1, ciudadano.getNombre());
-			ps.setString(2, ciudadano.getApellidos());
+			ps.setString(2, ciudadano.getLocalizacion());
 			ps.setString(3, ciudadano.getEmail());
-			ps.setDate(4, ciudadano.getFecha_nacimiento());
-			ps.setString(5, ciudadano.getDireccion());
-			ps.setString(6, ciudadano.getNacionalidad());
-			ps.setString(7, ciudadano.getDni());
+			ps.setString(4, ciudadano.getIdentificador());
+			ps.setInt(7, ciudadano.getTipo());
 			ps.executeUpdate();
 			ps.close();
 			con.close();
@@ -121,9 +119,9 @@ public class BBDD {
 		}
 	}
 
-	public static Agente obtenerCiudadano(String dni) {
+	public static Agente obtenerAgente(String dni) {
 		Connection con = crearConexion();
-		String consulta = "SELECT c.* FROM ciudadano c WHERE c.dni = ?";
+		String consulta = "SELECT c.* FROM ciudadano c WHERE c.identificador = ?";
 		Agente ciudadano = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -132,9 +130,9 @@ public class BBDD {
 			ps.setString(1, dni);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				ciudadano = new Agente(rs.getString("nombre"), rs.getString("apellidos"), rs.getString("email"),
-						rs.getString("direccion"), rs.getString("nacionalidad"), rs.getString("dni"),
-						rs.getDate("fecha_nacimiento"));
+				ciudadano = new Agente(rs.getString("nombre"),
+						rs.getString("localizacion"), rs.getString("email"),
+		rs.getString("identificador"), rs.getInt("tipo"));
 				ciudadano.setPassword(rs.getString("password"));
 			}
 			rs.close();
@@ -169,7 +167,7 @@ public class BBDD {
 	/**
 	 * Elimina todos los ciudadanos
 	 */
-	public static void eliminarCiudadanos() {
+	public static void eliminarAgentes() {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();

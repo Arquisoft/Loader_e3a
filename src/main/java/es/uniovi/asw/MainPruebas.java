@@ -19,7 +19,7 @@ public class MainPruebas {
 			System.out.println("imprimiendo desde el main " + Agente);
 		}
 
-		BBDD.eliminarCiudadanos();
+		BBDD.eliminarAgentes();
 		BBDD.insertarAgente(agentes);
 		Agente otro = BBDD.obtenerAgente(agentes.get(0).getIdentificador());
 		System.out.println(otro);
