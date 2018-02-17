@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.hsqldb.jdbc.JDBCDriver;
 
-import dao.Ciudadano;
+import dao.Agente;
 
 public class BBDD {
 
@@ -23,8 +23,8 @@ public class BBDD {
 		try {
 			DriverManager.registerDriver(new JDBCDriver());
 			String url = "jdbc:hsqldb:file:./DDBB/data/test";
-			//Descomentar para probar los test en local.
-			//String url = "jdbc:hsqldb:hsql://localhost/";
+			// Descomentar para probar los test en local.
+			// String url = "jdbc:hsqldb:hsql://localhost/";
 			String user = "SA";
 			String pass = "";
 			conexion = DriverManager.getConnection(url, user, pass);
@@ -40,23 +40,21 @@ public class BBDD {
 	 * @param ciudadanos,
 	 *            lista de ciudadanos a insertar en la base de datos
 	 */
-	public static void insertarCiudadano(List<Ciudadano> ciudadanos) {
+	public static void insertarCiudadano(List<Agente> agentes) {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
-			sb.append("insert into CIUDADANO ");
-			sb.append("(nombre, apellidos, email, direccion, nacionalidad, dni, fecha_nacimiento, password) ");
+			sb.append("insert into AGENTE ");
+			sb.append("(nombre, localizacion, email, identificador, tipo, password) ");
 			sb.append("values (?,?,?,?,?,?,?,?)");
 			PreparedStatement ps = con.prepareStatement(sb.toString());
-			for (Ciudadano ciu : ciudadanos) {
-				ps.setString(1, ciu.getNombre());
-				ps.setString(2, ciu.getApellidos());
-				ps.setString(3, ciu.getEmail());
-				ps.setString(4, ciu.getDireccion());
-				ps.setString(5, ciu.getNacionalidad());
-				ps.setString(6, ciu.getDni());
-				ps.setDate(7, ciu.getFecha_nacimiento());
-				ps.setString(8, ciu.getPassword());
+			for (Agente agen : agentes) {
+				ps.setString(1, agen.getNombre());
+				ps.setString(2, agen.getLocalizacion());
+				ps.setString(3, agen.getEmail());
+				ps.setString(4, agen.getIdentificador());
+				ps.setString(5, String.valueOf(agen.getTipo()));
+				ps.setString(6, agen.getPassword());
 				ps.execute();
 			}
 			con.close();
@@ -76,8 +74,8 @@ public class BBDD {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
-			sb.append("delete from CIUDADANO ");
-			sb.append("where dni = ?");
+			sb.append("delete from AGENTE ");
+			sb.append("where identificador = ?");
 			PreparedStatement ps = con.prepareStatement(sb.toString());
 			ps.setString(1, dni);
 			ps.execute();
@@ -92,18 +90,18 @@ public class BBDD {
 	}
 
 	/**
-	 * Se actualizan los datos de un usuario. Los nuevos datos se añaden a un
-	 * objeto ciudadano que sera el que se use para actualizar los datos (se
-	 * basa en el dni)
+	 * Se actualizan los datos de un usuario. Los nuevos datos se añaden a un objeto
+	 * ciudadano que sera el que se use para actualizar los datos (se basa en el
+	 * dni)
 	 * 
 	 * @param ciudadano
 	 *            a actualizar
 	 */
-	public static void updateCiudadano(Ciudadano ciudadano) {
+	public static void updateCiudadano(Agente ciudadano) {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
-			sb.append("UPDATE CIUDADANO "
+			sb.append("UPDATE AGENTE "
 					+ "set nombre= ?, apellidos= ?, email= ?, fecha_nacimiento= ?, direccion= ?, nacionalidad= ?"
 					+ "where dni=?");
 			PreparedStatement ps = con.prepareStatement(sb.toString());
@@ -123,10 +121,10 @@ public class BBDD {
 		}
 	}
 
-	public static Ciudadano obtenerCiudadano(String dni) {
+	public static Agente obtenerCiudadano(String dni) {
 		Connection con = crearConexion();
 		String consulta = "SELECT c.* FROM ciudadano c WHERE c.dni = ?";
-		Ciudadano ciudadano = null;
+		Agente ciudadano = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
@@ -134,7 +132,7 @@ public class BBDD {
 			ps.setString(1, dni);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				ciudadano = new Ciudadano(rs.getString("nombre"), rs.getString("apellidos"), rs.getString("email"),
+				ciudadano = new Agente(rs.getString("nombre"), rs.getString("apellidos"), rs.getString("email"),
 						rs.getString("direccion"), rs.getString("nacionalidad"), rs.getString("dni"),
 						rs.getDate("fecha_nacimiento"));
 				ciudadano.setPassword(rs.getString("password"));
@@ -149,12 +147,12 @@ public class BBDD {
 	}
 
 	/**
-	 * Metodo que guarda en la base de datos la contraseña asociada al usuario
-	 * que se identifica con el dni
+	 * Metodo que guarda en la base de datos la contraseña asociada al usuario que
+	 * se identifica con el dni
 	 */
 	public static void guardaarPasswordUsuario(String dni, String password) {
 		Connection con = crearConexion();
-		String consulta = "update Ciudadano set password = ? where dni = ?";
+		String consulta = "update Agente set password = ? where dni = ?";
 		PreparedStatement ps = null;
 		try {
 			ps = con.prepareStatement(consulta);
@@ -175,7 +173,7 @@ public class BBDD {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
-			sb.append("delete from CIUDADANO ");
+			sb.append("delete from AGENTE ");
 			PreparedStatement ps = con.prepareStatement(sb.toString());
 			ps.execute();
 			ps.close();

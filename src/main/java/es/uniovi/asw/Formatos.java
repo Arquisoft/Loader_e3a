@@ -2,9 +2,9 @@ package es.uniovi.asw;
 
 import java.util.ArrayList;
 
-import dao.Ciudadano;
+import dao.Agente;
 
 public interface Formatos {
-	
-	public ArrayList<Ciudadano> leerCiudadanos(ArrayList<Ciudadano> ciudadanos, String ruta);
+
+	public ArrayList<Agente> leerAgentes(ArrayList<Agente> ciudadanos, String ruta);
 }

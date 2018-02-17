@@ -3,11 +3,9 @@ package es.uniovi.asw;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import dao.Ciudadano;
-
+import dao.Agente;
 
 public class MainPruebas {
-
 
 	public static void main(String[] args) {
 		System.out.print("Inserte ruta:");
@@ -15,15 +13,15 @@ public class MainPruebas {
 		String ruta = scanner.nextLine();
 		ruta = ruta.replace("\"", "");
 		scanner.close();
-		ArrayList<Ciudadano> ciudadanos = new ArrayList<Ciudadano>();
-		Leer.Ciudadanos(ciudadanos, ruta);
-		for (Ciudadano ciudadano : ciudadanos) {
-			System.out.println("imprimiendo desde el main " + ciudadano);
+		ArrayList<Agente> agentes = new ArrayList<Agente>();
+		Leer.Agentes(agentes, ruta);
+		for (Agente Agente : agentes) {
+			System.out.println("imprimiendo desde el main " + Agente);
 		}
-		
+
 		BBDD.eliminarCiudadanos();
-		BBDD.insertarCiudadano(ciudadanos);
-		Ciudadano otro = BBDD.obtenerCiudadano(ciudadanos.get(0).getDni());
+		BBDD.insertarAgente(agentes);
+		Agente otro = BBDD.obtenerAgente(agentes.get(0).getIdentificador());
 		System.out.println(otro);
 	}
 

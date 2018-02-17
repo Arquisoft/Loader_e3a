@@ -17,26 +17,26 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import dao.Ciudadano;
+import dao.Agente;
 
 public class AplicationTest {
 
 	@Before
 	public void before() {
-		BBDD.eliminarCiudadanos();
+		BBDD.eliminarAgentes();
 	}
 
 	@SuppressWarnings("deprecation")
 	@Test
 	public void addCiudadanoTest() {
-		List<Ciudadano> ciudadanos = new ArrayList<Ciudadano>();
+		List<Agente> agentes = new ArrayList<Agente>();
 
-		Ciudadano c = new Ciudadano("Pepe", "Garcia", "email@prueba", "dir", "España", "564613I",
+		Agente c = new Agente("Pepe", "Garcia", "email@prueba", "dir", "España", "564613I",
 				new Date(1995 - 1900, 2, 25));
 		ciudadanos.add(c);
-		BBDD.insertarCiudadano(ciudadanos);
+		BBDD.insertarAgente(agentes);
 
-		Ciudadano cBD = BBDD.obtenerCiudadano("564613I");
+		Agente cBD = BBDD.obtenerAgente("564613I");
 		assertNotNull(cBD);
 		assertEquals("Pepe", cBD.getNombre());
 		assertEquals("Garcia", cBD.getApellidos());
@@ -69,11 +69,11 @@ public class AplicationTest {
 	@Test
 	public void testCargarCSS() {
 		// leemos y cargamos el fichero
-		ArrayList<Ciudadano> ciudadanos = new ArrayList<Ciudadano>();
-		ciudadanos =  Leer.Ciudadanos(ciudadanos, "./src/test/java/es/uniovi/asw/test.xlsx");
+		ArrayList<Agente> ciudadanos = new ArrayList<Agente>();
+		ciudadanos = Leer.Ciudadanos(ciudadanos, "./src/test/java/es/uniovi/asw/test.xlsx");
 
-		// probamos con el primer ciudadano
-		Ciudadano c = ciudadanos.get(0);
+		// probamos con el primer Agente
+		Agente c = ciudadanos.get(0);
 		assertEquals("Juan", c.getNombre());
 		assertEquals("Torres Pardo", c.getApellidos());
 		assertEquals("juan@example.com", c.getEmail());
@@ -82,7 +82,7 @@ public class AplicationTest {
 		assertEquals("Español", c.getNacionalidad());
 		assertEquals("90500084Y", c.getDni());
 
-		// probamos con el segundo ciudadano
+		// probamos con el segundo Agente
 		c = ciudadanos.get(1);
 		assertEquals("Luis", c.getNombre());
 		assertEquals("López Fernando", c.getApellidos());
@@ -92,7 +92,7 @@ public class AplicationTest {
 		assertEquals("Español", c.getNacionalidad());
 		assertEquals("19160962F", c.getDni());
 
-		// probamos con el tercer ciudadano
+		// probamos con el tercer Agente
 		c = ciudadanos.get(2);
 		assertEquals("Ana", c.getNombre());
 		assertEquals("Torres Pardo", c.getApellidos());
@@ -109,12 +109,11 @@ public class AplicationTest {
 	public void testCargarCiudadanos() {
 		// leemos y cargamos el fichero
 		Xlsx x = new Xlsx();
-		List<Ciudadano> ciudadanos = x.leerCiudadanos(new ArrayList<Ciudadano>(),
-				"./src/test/java/es/uniovi/asw/test.xlsx");
+		List<Agente> ciudadanos = x.leerCiudadanos(new ArrayList<Agente>(), "./src/test/java/es/uniovi/asw/test.xlsx");
 		BBDD.insertarCiudadano(ciudadanos);
-		
-		// probamos con el primer ciudadano
-		Ciudadano c = ciudadanos.get(0);
+
+		// probamos con el primer Agente
+		Agente c = ciudadanos.get(0);
 		assertEquals("Juan", c.getNombre());
 		assertEquals("Torres Pardo", c.getApellidos());
 		assertEquals("juan@example.com", c.getEmail());
@@ -123,7 +122,7 @@ public class AplicationTest {
 		assertEquals("Español", c.getNacionalidad());
 		assertEquals("90500084Y", c.getDni());
 
-		// probamos con el segundo ciudadano
+		// probamos con el segundo Agente
 		c = ciudadanos.get(1);
 		assertEquals("Luis", c.getNombre());
 		assertEquals("López Fernando", c.getApellidos());
@@ -133,7 +132,7 @@ public class AplicationTest {
 		assertEquals("Español", c.getNacionalidad());
 		assertEquals("19160962F", c.getDni());
 
-		// probamos con el tercer ciudadano
+		// probamos con el tercer Agente
 		c = ciudadanos.get(2);
 		assertEquals("Ana", c.getNombre());
 		assertEquals("Torres Pardo", c.getApellidos());
@@ -151,7 +150,7 @@ public class AplicationTest {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testCrearCorreo() {
-		Ciudadano c = new Ciudadano("Marcos", "Garcia", "marcos@mail.com", "C/ peru 3", "Español", "87963215P",
+		Agente c = new Agente("Marcos", "Garcia", "marcos@mail.com", "C/ peru 3", "Español", "87963215P",
 				new Date(1990 - 1900, 2, 10));
 		c.crearPassword();
 		assertNotNull(c.getPassword());
@@ -192,8 +191,8 @@ public class AplicationTest {
 
 	@Test
 	public void testEqualsXlsxCsv() {
-		ArrayList<Ciudadano> xlsx = new ArrayList<Ciudadano>();
-		ArrayList<Ciudadano> cvs = new ArrayList<Ciudadano>();
+		ArrayList<Agente> xlsx = new ArrayList<Agente>();
+		ArrayList<Agente> cvs = new ArrayList<Agente>();
 
 		String rutaXLSX = "./src/test/java/es/uniovi/asw/test.xlsx";
 		String rutaCVS = "./src/test/java/es/uniovi/asw/test.csv";
@@ -206,17 +205,17 @@ public class AplicationTest {
 			assertTrue((xlsx.get(i)).hashCode() == (cvs.get(i)).hashCode());
 		}
 	}
-	
+
 	@Test
-	public void exceptionXLSX(){
-		ArrayList<Ciudadano> xlsx = new ArrayList<Ciudadano>();
+	public void exceptionXLSX() {
+		ArrayList<Agente> xlsx = new ArrayList<Agente>();
 		String rutaXLSX = "./src/test/java/es/uniovi/asw/test.xlsx";
 		Leer.Ciudadanos(xlsx, rutaXLSX);
 	}
-	
+
 	@Test
-	public void exceptionCSV(){
-		ArrayList<Ciudadano> cvs = new ArrayList<Ciudadano>();
+	public void exceptionCSV() {
+		ArrayList<Agente> cvs = new ArrayList<Agente>();
 		String rutaCVS = "./src/test/java/es/uniovi/asw/test.csv";
 		Leer.Ciudadanos(cvs, rutaCVS);
 	}
@@ -224,14 +223,14 @@ public class AplicationTest {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testEliminarCiudadano() {
-		List<Ciudadano> ciudadanos = new ArrayList<Ciudadano>();
+		List<Agente> ciudadanos = new ArrayList<Agente>();
 
-		Ciudadano ciudadano = new Ciudadano("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español",
-				"123456789A", new Date(18, 7, 1995));
+		Agente Agente = new Agente("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español", "123456789A",
+				new Date(18, 7, 1995));
 
-		ciudadanos.add(ciudadano);
+		ciudadanos.add(Agente);
 		BBDD.insertarCiudadano(ciudadanos);
-		Ciudadano cBBDD = BBDD.obtenerCiudadano("123456789A");
+		Agente cBBDD = BBDD.obtenerCiudadano("123456789A");
 		assertNotNull(cBBDD);
 
 		BBDD.eliminarCiudadano("123456789A");
@@ -243,13 +242,13 @@ public class AplicationTest {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testEliminarTodosCiudadanos() {
-		List<Ciudadano> ciudadanos = new ArrayList<Ciudadano>();
-		Ciudadano ciudadano = new Ciudadano("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español",
-				"123456789A", new Date(18, 7, 1995));
+		List<Agente> ciudadanos = new ArrayList<Agente>();
+		Agente Agente = new Agente("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español", "123456789A",
+				new Date(18, 7, 1995));
 
-		ciudadanos.add(ciudadano);
+		ciudadanos.add(Agente);
 		BBDD.insertarCiudadano(ciudadanos);
-		Ciudadano cBBDD = BBDD.obtenerCiudadano("123456789A");
+		Agente cBBDD = BBDD.obtenerCiudadano("123456789A");
 		assertNotNull(cBBDD);
 
 		BBDD.eliminarCiudadanos();
@@ -261,14 +260,14 @@ public class AplicationTest {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testCrearPassword() {
-		List<Ciudadano> ciudadanos = new ArrayList<Ciudadano>();
+		List<Agente> ciudadanos = new ArrayList<Agente>();
 
-		Ciudadano ciudadano = new Ciudadano("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español", "1234A",
+		Agente Agente = new Agente("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español", "1234A",
 				new Date(18, 7, 1995));
 
-		ciudadanos.add(ciudadano);
+		ciudadanos.add(Agente);
 		BBDD.insertarCiudadano(ciudadanos);
-		Ciudadano cBBDD = BBDD.obtenerCiudadano("1234A");
+		Agente cBBDD = BBDD.obtenerCiudadano("1234A");
 		cBBDD.crearPassword();
 		String password = cBBDD.getPassword();
 		BBDD.guardaarPasswordUsuario("1234A", password);
