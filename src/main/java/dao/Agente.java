@@ -11,7 +11,9 @@ public class Agente {
 			String email, String identificador, int tipo) {
 		super();
 		this.nombre = nombre;
-		this.localizacion = localizacion;
+		if(localizacion!=null)
+			this.localizacion = localizacion;
+		
 		this.email = email;
 		this.identificador = identificador;
 		this.tipo = tipo;

@@ -6,13 +6,19 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import dao.Agente;
 
-public class Csv implements Formatos {
+public class Csv {
 
-	@Override
-	public ArrayList<Agente> leerAgentes(ArrayList<Agente> Agentes, String ruta) {
+	HashMap<Integer, String> csvmaestro = new HashMap<Integer, String>();
+	
+	public HashMap<Integer,String> getHashMAp()
+	{
+		return csvmaestro;
+	}
+	public void leerFicheroMaestro( String ruta) {
 		try {
 			FileInputStream is = new FileInputStream(ruta);
 			InputStreamReader isr = new InputStreamReader(is, "UTF-8");
@@ -21,11 +27,10 @@ public class Csv implements Formatos {
 			String str = "";
 
 			while ((str = buffReader.readLine()) != null) {
-				String[] trozos = str.split(";");
-				if (trozos[0].equals("Nombre"))
-					continue;
-				Agente agente = new Agente(trozos[0], trozos[1], trozos[2], trozos[3], Integer.valueOf(trozos[4]));
-				Agentes.add(agente);
+				String[] trozos = str.split(",");
+				int clave= Integer.valueOf(trozos[0]);
+				csvmaestro.put(clave, trozos[1]);
+				
 			}
 
 			buffReader.close();
@@ -33,6 +38,5 @@ public class Csv implements Formatos {
 		} catch (Exception e) {
 			System.out.println("Error leyendo el fichero csv");
 		}
-		return Agentes;
 	}
 }

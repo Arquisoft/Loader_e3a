@@ -35,10 +35,10 @@ public class BBDD {
 	}
 
 	/**
-	 * Añade ciudadanos a la base de datos
+	 * Añade agentes a la base de datos
 	 * 
-	 * @param ciudadanos,
-	 *            lista de ciudadanos a insertar en la base de datos
+	 * @param agentes,
+	 *            lista de agentes a insertar en la base de datos
 	 */
 	public static void insertarAgente(List<Agente> agentes) {
 		Connection con = crearConexion();
@@ -65,10 +65,10 @@ public class BBDD {
 	}
 
 	/**
-	 * Elimina 1 ciudadano cuyo dni se introduce como parametro
+	 * Elimina 1 agente cuyo dni se introduce como parametro
 	 * 
 	 * @param dni
-	 *            del ciudadano a borrar
+	 *            del agente a borrar
 	 */
 	public static void eliminarAgente(String dni) {
 		Connection con = crearConexion();
@@ -91,13 +91,13 @@ public class BBDD {
 
 	/**
 	 * Se actualizan los datos de un usuario. Los nuevos datos se añaden a un objeto
-	 * ciudadano que sera el que se use para actualizar los datos (se basa en el
+	 * agente que sera el que se use para actualizar los datos (se basa en el
 	 * dni)
 	 * 
-	 * @param ciudadano
+	 * @param agente
 	 *            a actualizar
 	 */
-	public static void updateAgente(Agente ciudadano) {
+	public static void updateAgente(Agente agente) {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
@@ -105,24 +105,24 @@ public class BBDD {
 					+ "set nombre= ?, localizacion= ?, email= ?, identificador= ?, tipo= ?, password= ?"
 					+ "where dni=?");
 			PreparedStatement ps = con.prepareStatement(sb.toString());
-			ps.setString(1, ciudadano.getNombre());
-			ps.setString(2, ciudadano.getLocalizacion());
-			ps.setString(3, ciudadano.getEmail());
-			ps.setString(4, ciudadano.getIdentificador());
-			ps.setInt(7, ciudadano.getTipo());
+			ps.setString(1, agente.getNombre());
+			ps.setString(2, agente.getLocalizacion());
+			ps.setString(3, agente.getEmail());
+			ps.setString(4, agente.getIdentificador());
+			ps.setInt(7, agente.getTipo());
 			ps.executeUpdate();
 			ps.close();
 			con.close();
 		} catch (SQLException e) {
-			System.err.println("no existe el ciudadano especificado");
+			System.err.println("no existe el agente especificado");
 			e.printStackTrace();
 		}
 	}
 
 	public static Agente obtenerAgente(String dni) {
 		Connection con = crearConexion();
-		String consulta = "SELECT c.* FROM ciudadano c WHERE c.identificador = ?";
-		Agente ciudadano = null;
+		String consulta = "SELECT c.* FROM agente c WHERE c.identificador = ?";
+		Agente agente = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
@@ -130,10 +130,10 @@ public class BBDD {
 			ps.setString(1, dni);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				ciudadano = new Agente(rs.getString("nombre"),
+				agente = new Agente(rs.getString("nombre"),
 						rs.getString("localizacion"), rs.getString("email"),
 		rs.getString("identificador"), rs.getInt("tipo"));
-				ciudadano.setPassword(rs.getString("password"));
+				agente.setPassword(rs.getString("password"));
 			}
 			rs.close();
 			ps.close();
@@ -141,7 +141,7 @@ public class BBDD {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return ciudadano;
+		return agente;
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class BBDD {
 	}
 
 	/**
-	 * Elimina todos los ciudadanos
+	 * Elimina todos los agentes
 	 */
 	public static void eliminarAgentes() {
 		Connection con = crearConexion();
@@ -178,7 +178,7 @@ public class BBDD {
 			con.close();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
-			System.err.print("Error al borrar todos los ciudadanos");
+			System.err.print("Error al borrar todos los agentes");
 			e.printStackTrace();
 		}
 	}
