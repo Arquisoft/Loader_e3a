@@ -65,25 +65,25 @@ public class BBDD {
 	}
 
 	/**
-	 * Elimina 1 agente cuyo dni se introduce como parametro
+	 * Elimina 1 agente cuyo identificador se introduce como parametro
 	 * 
-	 * @param dni
+	 * @param identificador
 	 *            del agente a borrar
 	 */
-	public static void eliminarAgente(String dni) {
+	public static void eliminarAgente(String identificador) {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
 			sb.append("delete from AGENTE ");
 			sb.append("where identificador = ?");
 			PreparedStatement ps = con.prepareStatement(sb.toString());
-			ps.setString(1, dni);
+			ps.setString(1, identificador);
 			ps.execute();
 			ps.close();
 			con.close();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
-			System.err.print("Seguramente es porque el formato dni es incorrecto");
+			System.err.print("Seguramente es porque el formato identificador es incorrecto");
 			e.printStackTrace();
 		}
 
@@ -92,7 +92,7 @@ public class BBDD {
 	/**
 	 * Se actualizan los datos de un usuario. Los nuevos datos se añaden a un objeto
 	 * agente que sera el que se use para actualizar los datos (se basa en el
-	 * dni)
+	 * identificador)
 	 * 
 	 * @param agente
 	 *            a actualizar
@@ -103,7 +103,7 @@ public class BBDD {
 			StringBuilder sb = new StringBuilder();
 			sb.append("UPDATE AGENTE "
 					+ "set nombre= ?, localizacion= ?, email= ?, identificador= ?, tipo= ?, password= ?"
-					+ "where dni=?");
+					+ "where identificador=?");
 			PreparedStatement ps = con.prepareStatement(sb.toString());
 			ps.setString(1, agente.getNombre());
 			ps.setString(2, agente.getLocalizacion());
@@ -119,7 +119,7 @@ public class BBDD {
 		}
 	}
 
-	public static Agente obtenerAgente(String dni) {
+	public static Agente obtenerAgente(String identificador) {
 		Connection con = crearConexion();
 		String consulta = "SELECT c.* FROM agente c WHERE c.identificador = ?";
 		Agente agente = null;
@@ -127,7 +127,7 @@ public class BBDD {
 		ResultSet rs = null;
 		try {
 			ps = con.prepareStatement(consulta);
-			ps.setString(1, dni);
+			ps.setString(1, identificador);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				agente = new Agente(rs.getString("nombre"),
@@ -146,16 +146,16 @@ public class BBDD {
 
 	/**
 	 * Metodo que guarda en la base de datos la contraseña asociada al usuario que
-	 * se identifica con el dni
+	 * se identifica con el identificador
 	 */
-	public static void guardaarPasswordUsuario(String dni, String password) {
+	public static void guardaarPasswordUsuario(String identificador, String password) {
 		Connection con = crearConexion();
-		String consulta = "update Agente set password = ? where dni = ?";
+		String consulta = "update Agente set password = ? where identificador = ?";
 		PreparedStatement ps = null;
 		try {
 			ps = con.prepareStatement(consulta);
 			ps.setString(1, password);
-			ps.setString(2, dni);
+			ps.setString(2, identificador);
 			ps.executeUpdate();
 			ps.close();
 			con.close();

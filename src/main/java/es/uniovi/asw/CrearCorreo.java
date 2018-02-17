@@ -20,12 +20,12 @@ public class CrearCorreo {
 
 			fileWriter = new FileWriter(file);
 			String cadena = "Buenos dias " + nombre + "\n";
-			cadena += "Usted a sido dado de alta con exito en el sistema de particion ciudadana.\n";
+			cadena += "Usted a sido dado de alta con exito en el sistema.\n";
 			cadena += "Sus credenciales son:\n";
-			cadena += "\tUsuario: " + agente.getEmail() + "\n";
+			cadena += "\tUsuario: " + agente.getIdentificador() + "\n";
 			cadena += "\tContraseña: " + agente.getPassword() + "\n";
 			cadena += "\nUn saludo y gracias por darse de alta.\n";
-			cadena += "\nAtentamente el ayuntamiento.";
+			cadena += "\nAtentamente un saludo.";
 			fileWriter.write(cadena);
 			bufferedWriter = new BufferedWriter(fileWriter);
 		} catch (IOException e) {
