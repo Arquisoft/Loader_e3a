@@ -44,10 +44,9 @@ GRANT DBA TO SA
 SET SCHEMA SYSTEM_LOBS
 INSERT INTO BLOCKS VALUES(0,2147483647,0)
 SET SCHEMA PUBLIC
-INSERT INTO AGENTE VALUES('sensor1','35.2215N-3.235W','administrador1@hotmail.com','#123',3,'7dasd7/')
-INSERT INTO AGENTE VALUES('sensoo2','82.2215N-3.235W','administrador2@hotmail.com','#485',3,'46/ads')
-INSERT INTO AGENTE VALUES('pedro','','pedro@hotmail.com','53233431S',1,'esdfg54_')
-INSERT INTO AGENTE VALUES('Jose Luis Bugallo','35.2215N-3.235W','joseluisbugallo@hotmail.com','53521544S',1,'qwerty')
-INSERT INTO AGENTE VALUES('alvaro','','alvaro@hotmail.com','53765434Z',1,'ds5646d')
-INSERT INTO AGENTE VALUES('entity1','75.2215N-3.235W','entidad1@hotmail.com','B-2345678',2,'dsa645456dsa-')
-INSERT INTO AGENTE VALUES('entity2','35.2215N-31.235W','entidad2@hotmail.com','B-9876543',2,'86tygihjlkj5')
+INSERT INTO AGENTE VALUES('sensor1','45,032N65,366W','administrador@gmail.com','#456123',2,NULL)
+INSERT INTO AGENTE VALUES('sensor2','31,032N65,366W','administrador2@gmail.com','#74185',2,NULL)
+INSERT INTO AGENTE VALUES('Juan','dfgdfg','bblaa@yahoo.es','74523699Z',1,NULL)
+INSERT INTO AGENTE VALUES('Pedro','gfdfgd','pedro@hotmail.com','78569544S',1,NULL)
+INSERT INTO AGENTE VALUES('entity2','gdfgd','entidad2@gmail.com','B-74741255',3,NULL)
+INSERT INTO AGENTE VALUES('entity1','gdfg','entidad1@gmail.com','B-78458599',3,NULL)

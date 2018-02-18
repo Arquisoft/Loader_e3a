@@ -12,9 +12,9 @@ import dao.Agente;
 
 public class Csv {
 
-	HashMap<Integer, String> csvmaestro = new HashMap<Integer, String>();
+	static HashMap<Integer, String> csvmaestro = new HashMap<Integer, String>();
 	
-	public HashMap<Integer,String> getHashMAp()
+	public static HashMap<Integer,String> getHashMAp()
 	{
 		return csvmaestro;
 	}

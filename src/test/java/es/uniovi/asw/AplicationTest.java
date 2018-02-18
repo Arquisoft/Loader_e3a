@@ -28,14 +28,14 @@ public class AplicationTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void addCiudadanoTest() {
+	public void addAgenteTest() {
 		List<Agente> agentes = new ArrayList<Agente>();
 
 		Agente c = new Agente("Pepe", "locprueba", "email@prueba", "identifPrueba", 1);
 		agentes.add(c);
 		BBDD.insertarAgente(agentes);
 
-		Agente cBD = BBDD.obtenerAgente("564613I");
+		Agente cBD = BBDD.obtenerAgente("identifPrueba");
 		assertNotNull(cBD);
 		assertEquals("Pepe", cBD.getNombre());
 		assertEquals("locprueba", cBD.getLocalizacion());
@@ -43,23 +43,17 @@ public class AplicationTest {
 		assertEquals("identifPrueba", cBD.getIdentificador());
 		
 
-		c.setDireccion("direccion2");
 		c.setEmail("otroemail@.com");
-		c.setApellidos("Garcia Garcia");
 
-		BBDD.updateCiudadano(c);
-		cBD = BBDD.obtenerCiudadano("564613I");
+		BBDD.updateAgente(c);
+		cBD = BBDD.obtenerAgente("identifPrueba");
 		assertNotNull(cBD);
 		assertEquals("Pepe", cBD.getNombre());
-		assertEquals("Garcia Garcia", cBD.getApellidos());
 		assertEquals("otroemail@.com", cBD.getEmail());
-		assertEquals("direccion2", cBD.getDireccion());
-		assertEquals("España", cBD.getNacionalidad());
-		assertEquals("564613I", cBD.getDni());
-		assertEquals(new Date(1995 - 1900, 2, 25), cBD.getFecha_nacimiento());
+		assertEquals("identifPrueba", cBD.getIdentificador());
 
-		BBDD.eliminarCiudadano("564613I");
-		cBD = BBDD.obtenerCiudadano("564613I");
+		BBDD.eliminarAgente("identifPrueba");
+		cBD = BBDD.obtenerAgente("identifPrueba");
 		assertNull(cBD);
 	}
 
@@ -67,89 +61,25 @@ public class AplicationTest {
 	public void testCargarCSS() {
 		// leemos y cargamos el fichero
 		ArrayList<Agente> ciudadanos = new ArrayList<Agente>();
-		ciudadanos = Leer.Ciudadanos(ciudadanos, "./src/test/java/es/uniovi/asw/test.xlsx");
+		ciudadanos = Leer.leerAgentesdelExcel(ciudadanos, "./src/main/java/es/uniovi/asw/agentes.xlsx");
 
 		// probamos con el primer Agente
 		Agente c = ciudadanos.get(0);
-		assertEquals("Juan", c.getNombre());
-		assertEquals("Torres Pardo", c.getApellidos());
-		assertEquals("juan@example.com", c.getEmail());
-		// assertEquals("1985-10-10", String.valueOf(c.getFecha_nacimiento()));
-		assertEquals("C/ Federico García Lorca 2", c.getDireccion());
-		assertEquals("Español", c.getNacionalidad());
-		assertEquals("90500084Y", c.getDni());
+		assertEquals("Pedro", c.getNombre());
+		assertEquals("pedro@hotmail.com", c.getEmail());
+		assertEquals("78569544S", c.getIdentificador());
 
-		// probamos con el segundo Agente
-		c = ciudadanos.get(1);
-		assertEquals("Luis", c.getNombre());
-		assertEquals("López Fernando", c.getApellidos());
-		assertEquals("luis@example.com", c.getEmail());
-		// assertEquals("1970-03-02", String.valueOf(c.getFecha_nacimiento()));
-		assertEquals("C/ Real Oviedo 2", c.getDireccion());
-		assertEquals("Español", c.getNacionalidad());
-		assertEquals("19160962F", c.getDni());
 
-		// probamos con el tercer Agente
-		c = ciudadanos.get(2);
-		assertEquals("Ana", c.getNombre());
-		assertEquals("Torres Pardo", c.getApellidos());
-		assertEquals("ana@example.com", c.getEmail());
-		// assertEquals("1960-01-01", String.valueOf(c.getFecha_nacimiento()));
-		assertEquals("Av. De la Constitución 8", c.getDireccion());
-		assertEquals("Español", c.getNacionalidad());
-		assertEquals("09940449X", c.getDni());
 
 	}
 
-	@SuppressWarnings("deprecation")
-	@Test
-	public void testCargarCiudadanos() {
-		// leemos y cargamos el fichero
-		Xlsx x = new Xlsx();
-		List<Agente> ciudadanos = x.leerCiudadanos(new ArrayList<Agente>(), "./src/test/java/es/uniovi/asw/test.xlsx");
-		BBDD.insertarCiudadano(ciudadanos);
-
-		// probamos con el primer Agente
-		Agente c = ciudadanos.get(0);
-		assertEquals("Juan", c.getNombre());
-		assertEquals("Torres Pardo", c.getApellidos());
-		assertEquals("juan@example.com", c.getEmail());
-		assertEquals(new Date(1985 - 1900, 10 - 1, 10), c.getFecha_nacimiento());
-		assertEquals("C/ Federico García Lorca 2", c.getDireccion());
-		assertEquals("Español", c.getNacionalidad());
-		assertEquals("90500084Y", c.getDni());
-
-		// probamos con el segundo Agente
-		c = ciudadanos.get(1);
-		assertEquals("Luis", c.getNombre());
-		assertEquals("López Fernando", c.getApellidos());
-		assertEquals("luis@example.com", c.getEmail());
-		assertEquals(new Date(1970 - 1900, 3 - 1, 2), c.getFecha_nacimiento());
-		assertEquals("C/ Real Oviedo 2", c.getDireccion());
-		assertEquals("Español", c.getNacionalidad());
-		assertEquals("19160962F", c.getDni());
-
-		// probamos con el tercer Agente
-		c = ciudadanos.get(2);
-		assertEquals("Ana", c.getNombre());
-		assertEquals("Torres Pardo", c.getApellidos());
-		assertEquals("ana@example.com", c.getEmail());
-		assertEquals(new Date(1960 - 1900, 1 - 1, 1), c.getFecha_nacimiento());
-		assertEquals("Av. De la Constitución 8", c.getDireccion());
-		assertEquals("Español", c.getNacionalidad());
-		assertEquals("09940449X", c.getDni());
-
-		assertNotNull(BBDD.obtenerCiudadano("90500084Y"));
-		assertNotNull(BBDD.obtenerCiudadano("19160962F"));
-		assertNotNull(BBDD.obtenerCiudadano("09940449X"));
-	}
+	
 
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testCrearCorreo() {
-		Agente c = new Agente("Marcos", "Garcia", "marcos@mail.com", "C/ peru 3", "Español", "87963215P",
-				new Date(1990 - 1900, 2, 10));
-		c.crearPassword();
+		Agente c = new Agente("Pepe", "locprueba", "email@prueba", "identifPrueba", 1);
+		
 		assertNotNull(c.getPassword());
 
 		String rutaFichero = "./correos/" + c.getNombre() + ".txt";
@@ -157,120 +87,14 @@ public class AplicationTest {
 		assertFalse(fichero.exists());
 
 		CrearCorreo.mandarCorreo(c);
-		String[] correo = new String[9];
-
-		correo[0] = "Buenos dias " + c.getNombre();
-		correo[1] = "Usted a sido dado de alta con exito en el sistema de particion ciudadana.";
-		correo[2] = "Sus credenciales son:";
-		correo[3] = "\tUsuario: " + c.getEmail();
-		correo[4] = "\tContraseña: " + c.getPassword();
-		correo[5] = "";
-		correo[6] = "Un saludo y gracias por darse de alta.";
-		correo[7] = "";
-		correo[8] = "Atentamente el ayuntamiento.";
+		
 		fichero = new File(rutaFichero);
 		assertTrue(fichero.exists());
 
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(fichero));
-
-			int i = 0;
-			while (reader.ready()) {
-				assertEquals(correo[i], reader.readLine());
-				i++;
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 		fichero.delete();
 	}
 
-	@Test
-	public void testEqualsXlsxCsv() {
-		ArrayList<Agente> xlsx = new ArrayList<Agente>();
-		ArrayList<Agente> cvs = new ArrayList<Agente>();
 
-		String rutaXLSX = "./src/test/java/es/uniovi/asw/test.xlsx";
-		String rutaCVS = "./src/test/java/es/uniovi/asw/test.csv";
-
-		Leer.Ciudadanos(xlsx, rutaXLSX);
-		Leer.Ciudadanos(cvs, rutaCVS);
-
-		for (int i = 0; i < cvs.size(); i++) {
-			assertTrue((xlsx.get(i)).equals(cvs.get(i)));
-			assertTrue((xlsx.get(i)).hashCode() == (cvs.get(i)).hashCode());
-		}
-	}
-
-	@Test
-	public void exceptionXLSX() {
-		ArrayList<Agente> xlsx = new ArrayList<Agente>();
-		String rutaXLSX = "./src/test/java/es/uniovi/asw/test.xlsx";
-		Leer.Ciudadanos(xlsx, rutaXLSX);
-	}
-
-	@Test
-	public void exceptionCSV() {
-		ArrayList<Agente> cvs = new ArrayList<Agente>();
-		String rutaCVS = "./src/test/java/es/uniovi/asw/test.csv";
-		Leer.Ciudadanos(cvs, rutaCVS);
-	}
-
-	@SuppressWarnings("deprecation")
-	@Test
-	public void testEliminarCiudadano() {
-		List<Agente> ciudadanos = new ArrayList<Agente>();
-
-		Agente Agente = new Agente("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español", "123456789A",
-				new Date(18, 7, 1995));
-
-		ciudadanos.add(Agente);
-		BBDD.insertarCiudadano(ciudadanos);
-		Agente cBBDD = BBDD.obtenerCiudadano("123456789A");
-		assertNotNull(cBBDD);
-
-		BBDD.eliminarCiudadano("123456789A");
-
-		cBBDD = BBDD.obtenerCiudadano("123456789A");
-		assertNull(cBBDD);
-	}
-
-	@SuppressWarnings("deprecation")
-	@Test
-	public void testEliminarTodosCiudadanos() {
-		List<Agente> ciudadanos = new ArrayList<Agente>();
-		Agente Agente = new Agente("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español", "123456789A",
-				new Date(18, 7, 1995));
-
-		ciudadanos.add(Agente);
-		BBDD.insertarCiudadano(ciudadanos);
-		Agente cBBDD = BBDD.obtenerCiudadano("123456789A");
-		assertNotNull(cBBDD);
-
-		BBDD.eliminarCiudadanos();
-
-		cBBDD = BBDD.obtenerCiudadano("123456789A");
-		assertNull(cBBDD);
-	}
-
-	@SuppressWarnings("deprecation")
-	@Test
-	public void testCrearPassword() {
-		List<Agente> ciudadanos = new ArrayList<Agente>();
-
-		Agente Agente = new Agente("Hugo", "Perez", "yo@me.com", "Calle no se que Oviedo", "español", "1234A",
-				new Date(18, 7, 1995));
-
-		ciudadanos.add(Agente);
-		BBDD.insertarCiudadano(ciudadanos);
-		Agente cBBDD = BBDD.obtenerCiudadano("1234A");
-		cBBDD.crearPassword();
-		String password = cBBDD.getPassword();
-		BBDD.guardaarPasswordUsuario("1234A", password);
-		cBBDD = BBDD.obtenerCiudadano("1234A");
-
-		assertEquals(password, cBBDD.getPassword());
-	}
 
 }

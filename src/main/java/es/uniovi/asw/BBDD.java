@@ -109,7 +109,9 @@ public class BBDD {
 			ps.setString(2, agente.getLocalizacion());
 			ps.setString(3, agente.getEmail());
 			ps.setString(4, agente.getIdentificador());
-			ps.setInt(7, agente.getTipo());
+			ps.setInt(5, agente.getTipo());
+			ps.setString(6, agente.getPassword());
+			ps.setString(7, agente.getIdentificador());
 			ps.executeUpdate();
 			ps.close();
 			con.close();

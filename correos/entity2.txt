@@ -1,8 +1,8 @@
-Buenos dias Juan
+Buenos dias entity2
 Usted a sido dado de alta con exito en el sistema.
 Sus credenciales son:
-	Usuario: 74523699Z
-	Contraseña: Eginqy7¿
+	Usuario: B-74741255
+	Contraseña: Bbgqru6%
 
 Un saludo y gracias por darse de alta.
 

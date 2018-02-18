@@ -1,8 +1,8 @@
-Buenos dias Juan
+Buenos dias sensor1
 Usted a sido dado de alta con exito en el sistema.
 Sus credenciales son:
-	Usuario: 74523699Z
-	Contraseña: Eginqy7¿
+	Usuario: #456123
+	Contraseña: Bbnndi5'
 
 Un saludo y gracias por darse de alta.
 

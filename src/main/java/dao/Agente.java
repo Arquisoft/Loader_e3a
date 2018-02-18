@@ -2,6 +2,8 @@ package dao;
 
 import java.util.Random;
 
+import es.uniovi.asw.Csv;
+
 public class Agente {
 	private String nombre, localizacion, email, identificador;
 	private int tipo;
@@ -17,8 +19,14 @@ public class Agente {
 		this.email = email;
 		this.identificador = identificador;
 		this.tipo = tipo;
+		crearPassword();
 
 	}
+	
+	public String toString (){
+        String mensaje="Agente:\n\t Nombre: "+getNombre()+"\n\t Localizacion: "+ getLocalizacion()+"\n\t Email: "+ getEmail()+"\n\t Identificador: "+ getIdentificador()+"\n\t Tipo: "+ Csv.getHashMAp().get(getTipo())+"\n\t Contraseña: "+ getPassword();
+        return mensaje;
+    }
 
 	public String getNombre() {
 		return nombre;
