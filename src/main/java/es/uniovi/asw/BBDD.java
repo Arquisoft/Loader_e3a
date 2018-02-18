@@ -22,9 +22,9 @@ public class BBDD {
 		Connection conexion = null;
 		try {
 			DriverManager.registerDriver(new JDBCDriver());
-			//String url = "jdbc:hsqldb:file:./DDBB/data/test";
+			String url = "jdbc:hsqldb:file:./DDBB/data/test";
 			// Descomentar para probar los test en local.
-			 String url = "jdbc:hsqldb:hsql://localhost/";
+			 //String url = "jdbc:hsqldb:hsql://localhost/";
 			String user = "SA";
 			String pass = "";
 			conexion = DriverManager.getConnection(url, user, pass);
