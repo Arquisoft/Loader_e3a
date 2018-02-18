@@ -2,7 +2,7 @@ Buenos dias entity1
 Usted a sido dado de alta con exito en el sistema.
 Sus credenciales son:
 	Usuario: B-78458599
-	ContraseÃ±a: Gqufov0'
+	Contraseña: Fflhsw4'
 
 Un saludo y gracias por darse de alta.
 

@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import dao.Agente;
 
-public class Main {
+public class MainPruebas {
 
 	public static void main(String[] args) {
 		BBDD.eliminarAgentes();
