@@ -52,3 +52,8 @@ local.properties
 .recommenders/
 
 .DS_Store
+
+# Added by Labra
+.log
+~*
+*.lck
