@@ -54,6 +54,6 @@ local.properties
 .DS_Store
 
 # Added by Labra
-.log
+*.log
 ~*
 *.lck
