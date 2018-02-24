@@ -11,7 +11,8 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-.correos/
+**/correos
+
 
 # Eclipse Core
 .project
