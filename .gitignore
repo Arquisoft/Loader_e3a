@@ -60,4 +60,4 @@ local.properties
 ~*
 *.lck
 # Added by UO250932
-correos/
+correos/*.txt
