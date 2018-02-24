@@ -59,5 +59,3 @@ local.properties
 *.log
 ~*
 *.lck
-# Added by UO250932
-correos/*.txt
