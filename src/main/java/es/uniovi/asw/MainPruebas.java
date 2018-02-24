@@ -9,25 +9,19 @@ import dao.Agente;
 public class MainPruebas {
 
 	public static void main(String[] args) {
+		String ruta=args[0];
+		String ruta2=args[1];
 		BBDD.eliminarAgentes();
-		Scanner scanner = new Scanner(System.in);
-		// Probar lectura del csv
+		
 		System.out.println("Vamos a cargar los tipos de agentes con el fichero maestro csv");
-		System.out.print("Inserte ruta csv:");
-		String ruta2 = scanner.nextLine();
-		ruta2 = ruta2.replace("\"", "");
 		Csv csv = new Csv();
-		csv.leerFicheroMaestro(ruta2);
+		csv.leerFicheroMaestro(ruta);
 		System.out.println("Fichero cargado correctamente");
+		
 		// Probar lectura del xlsx
 		System.out.println("Vamos a cargar los agentes");
-		System.out.print("Inserte ruta xlsx:");
-
-		String ruta = scanner.nextLine();
-		ruta = ruta.replace("\"", "");
-		scanner.close();
 		ArrayList<Agente> agentes = new ArrayList<Agente>();
-		Leer.leerAgentesdelExcel(agentes, ruta);
+		Leer.leerAgentesdelExcel(agentes, ruta2);
 		BBDD.insertarAgente(agentes);
 		System.out.println("Listado de Agentes Cargados");
 		for (Agente agente : agentes) {
@@ -39,10 +33,5 @@ public class MainPruebas {
 		}
 		System.out.println("Correos creados en la carpeta correos");
 
-		
-		
-		
-
 	}
-
 }
