@@ -1,9 +1,0 @@
-Buenos dias entity2
-Usted a sido dado de alta con exito en el sistema.
-Sus credenciales son:
-	Usuario: B-74741255
-	Contraseña: Puasww0+
-
-Un saludo y gracias por darse de alta.
-
-Atentamente un saludo.

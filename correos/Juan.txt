@@ -1,9 +1,0 @@
-Buenos dias Juan
-Usted a sido dado de alta con exito en el sistema.
-Sus credenciales son:
-	Usuario: 74523699Z
-	Contraseña: Hshsef0?
-
-Un saludo y gracias por darse de alta.
-
-Atentamente un saludo.
