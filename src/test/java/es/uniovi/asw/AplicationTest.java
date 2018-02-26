@@ -29,7 +29,7 @@ public class AplicationTest {
 	@Test
 	public void testCargaFicherosCSV() {
 
-		Csv.leerFicheroMaestro("./src/test/java/es/uniovi/asw/tiposPrueba.csv");
+		Csv.leerFicheroMaestro("./src/main/java/es/uniovi/asw/tipos.csv");
 		assertEquals("Person", Csv.csvmaestro.get(1));
 		assertEquals("Entity", Csv.csvmaestro.get(2));
 		assertEquals("Sensor", Csv.csvmaestro.get(3));
