@@ -12,7 +12,9 @@ cd Loader_e3a
 Execute mvn package
 
 Execute java -jar target\Loader_e3a-0.0.1-jar-with-dependencies.jar src\main\java\es\uniovi\asw\tipos.csv src\main\java\es\uniovi\asw\agentes.xlsx
+
 Or
+
 java -jar target/Loader_e3a-0.0.1-jar-with-dependencies.jar src/main/java/es/uniovi/asw/tipos.csv src/main/java/es/uniovi/asw/agentes.xlsx
 
 
