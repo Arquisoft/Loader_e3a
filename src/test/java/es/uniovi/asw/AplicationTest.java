@@ -26,6 +26,24 @@ public class AplicationTest {
 		BBDD.eliminarAgentes();
 	}
 
+	@Test
+	public void testCargaFicherosCSV() {
+
+		Csv.leerFicheroMaestro("./src/test/java/es/uniovi/asw/tiposPrueba.csv");
+		assertEquals("Person", Csv.csvmaestro.get(1));
+		assertEquals("Entity", Csv.csvmaestro.get(2));
+		assertEquals("Sensor", Csv.csvmaestro.get(3));
+
+	}
+
+	// @Test
+	// public void testCargaFicherosXLSX() {
+	//
+	// ArrayList<Agente> agentes = new ArrayList<Agente>();
+	// Leer.leerAgentesdelExcel(agentes, "agentesPrueba.xlsx");
+	// agentes.get(0);
+	// }
+
 	@SuppressWarnings("deprecation")
 	@Test
 	public void addAgenteTest() {
@@ -41,7 +59,6 @@ public class AplicationTest {
 		assertEquals("locprueba", cBD.getLocalizacion());
 		assertEquals("email@prueba", cBD.getEmail());
 		assertEquals("identifPrueba", cBD.getIdentificador());
-		
 
 		c.setEmail("otroemail@.com");
 
@@ -69,17 +86,13 @@ public class AplicationTest {
 		assertEquals("pedro@hotmail.com", c.getEmail());
 		assertEquals("78569544S", c.getIdentificador());
 
-
-
 	}
-
-	
 
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testCrearCorreo() {
 		Agente c = new Agente("Pepe", "locprueba", "email@prueba", "identifPrueba", 1);
-		
+
 		assertNotNull(c.getPassword());
 
 		String rutaFichero = "./correos/" + c.getNombre() + ".txt";
@@ -87,14 +100,11 @@ public class AplicationTest {
 		assertFalse(fichero.exists());
 
 		CrearCorreo.mandarCorreo(c);
-		
+
 		fichero = new File(rutaFichero);
 		assertTrue(fichero.exists());
 
-		
 		fichero.delete();
 	}
-
-
 
 }

@@ -13,12 +13,12 @@ import dao.Agente;
 public class Csv {
 
 	static HashMap<Integer, String> csvmaestro = new HashMap<Integer, String>();
-	
-	public static HashMap<Integer,String> getHashMAp()
-	{
+
+	public static HashMap<Integer, String> getHashMAp() {
 		return csvmaestro;
 	}
-	public void leerFicheroMaestro( String ruta) {
+
+	public static void leerFicheroMaestro(String ruta) {
 		try {
 			FileInputStream is = new FileInputStream(ruta);
 			InputStreamReader isr = new InputStreamReader(is, "UTF-8");
@@ -27,10 +27,11 @@ public class Csv {
 			String str = "";
 
 			while ((str = buffReader.readLine()) != null) {
+		
 				String[] trozos = str.split(",");
-				int clave= Integer.valueOf(trozos[0]);
-				csvmaestro.put(clave, trozos[1]);
-				
+				int clave = Integer.valueOf(trozos[0]);
+				csvmaestro.put(clave, trozos[1].toString());
+
 			}
 
 			buffReader.close();
