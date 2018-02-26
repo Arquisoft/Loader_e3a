@@ -60,7 +60,7 @@ local.properties
 ~*
 *.lck
 
-# Added
+# Correos
 correos/*.txt
 !correos/ejemplo.txt
 
