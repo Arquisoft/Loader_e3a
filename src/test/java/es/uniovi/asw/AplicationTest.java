@@ -42,6 +42,9 @@ public class AplicationTest {
 		ArrayList<Agente> agentes = new ArrayList<Agente>();
 		Leer.leerAgentesdelExcel(agentes, "./src/main/java/es/uniovi/asw/agentes.xlsx");
 		assertEquals("78569544S", agentes.get(0).getIdentificador());
+		assertEquals("Pedro", agentes.get(0).getNombre());
+		assertEquals(1, agentes.get(0).getTipo());
+		assertEquals("pedro@hotmail.com", agentes.get(0).getEmail());
 		assertEquals("74523699Z", agentes.get(1).getIdentificador());
 		assertEquals("#456123", agentes.get(2).getIdentificador());
 		assertEquals("#74185", agentes.get(3).getIdentificador());

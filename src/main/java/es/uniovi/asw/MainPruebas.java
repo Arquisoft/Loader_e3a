@@ -12,12 +12,9 @@ public class MainPruebas {
 		String ruta = args[0];
 		String ruta2 = args[1];
 		BBDD.eliminarAgentes();
-
 		System.out.println("Vamos a cargar los tipos de agentes con el fichero maestro csv");
-
 		Csv.leerFicheroMaestro(ruta);
 		System.out.println("Fichero cargado correctamente");
-
 		// Probar lectura del xlsx
 		System.out.println("Vamos a cargar los agentes");
 		ArrayList<Agente> agentes = new ArrayList<Agente>();
