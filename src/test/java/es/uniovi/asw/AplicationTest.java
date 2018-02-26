@@ -36,13 +36,18 @@ public class AplicationTest {
 
 	}
 
-	// @Test
-	// public void testCargaFicherosXLSX() {
-	//
-	// ArrayList<Agente> agentes = new ArrayList<Agente>();
-	// Leer.leerAgentesdelExcel(agentes, "agentesPrueba.xlsx");
-	// agentes.get(0);
-	// }
+	@Test
+	public void testCargaFicherosXLSX() {
+
+		ArrayList<Agente> agentes = new ArrayList<Agente>();
+		Leer.leerAgentesdelExcel(agentes, "./src/main/java/es/uniovi/asw/agentes.xlsx");
+		assertEquals("78569544S", agentes.get(0).getIdentificador());
+		assertEquals("74523699Z", agentes.get(1).getIdentificador());
+		assertEquals("#456123", agentes.get(2).getIdentificador());
+		assertEquals("#74185", agentes.get(3).getIdentificador());
+		assertEquals("B-78458599", agentes.get(4).getIdentificador());
+		assertEquals("B-74741255", agentes.get(5).getIdentificador());
+	}
 
 	@SuppressWarnings("deprecation")
 	@Test
