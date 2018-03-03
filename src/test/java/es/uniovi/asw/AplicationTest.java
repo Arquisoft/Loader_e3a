@@ -40,7 +40,8 @@ public class AplicationTest {
 	public void testCargaFicherosXLSX() {
 
 		ArrayList<Agente> agentes = new ArrayList<Agente>();
-		Leer.leerAgentesdelExcel(agentes, "./src/main/java/es/uniovi/asw/agentes.xlsx");
+		Leer leer = new Leer();
+		leer.leerAgentesdelExcel(agentes, "./src/main/java/es/uniovi/asw/agentes.xlsx");
 		assertEquals("78569544S", agentes.get(0).getIdentificador());
 		assertEquals("Pedro", agentes.get(0).getNombre());
 		assertEquals(1, agentes.get(0).getTipo());
@@ -86,7 +87,9 @@ public class AplicationTest {
 	public void testCargarCSS() {
 		// leemos y cargamos el fichero
 		ArrayList<Agente> ciudadanos = new ArrayList<Agente>();
-		ciudadanos = Leer.leerAgentesdelExcel(ciudadanos, "./src/main/java/es/uniovi/asw/agentes.xlsx");
+		Leer leer = new Leer();
+
+		ciudadanos = leer.leerAgentesdelExcel(ciudadanos, "./src/main/java/es/uniovi/asw/agentes.xlsx");
 
 		// probamos con el primer Agente
 		Agente c = ciudadanos.get(0);

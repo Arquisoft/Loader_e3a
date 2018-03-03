@@ -18,7 +18,8 @@ public class MainPruebas {
 		// Probar lectura del xlsx
 		System.out.println("Vamos a cargar los agentes");
 		ArrayList<Agente> agentes = new ArrayList<Agente>();
-		Leer.leerAgentesdelExcel(agentes, ruta2);
+		Leer leer = new Leer();
+		leer.leerAgentesdelExcel(agentes, ruta2);
 		BBDD.insertarAgente(agentes);
 		System.out.println("Listado de Agentes Cargados");
 		for (Agente agente : agentes) {

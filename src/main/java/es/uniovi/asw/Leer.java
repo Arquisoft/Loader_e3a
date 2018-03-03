@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import dao.Agente;
 
-public class Leer {
+public class Leer implements ReadList{
 
-	public static ArrayList<Agente> leerAgentesdelExcel(ArrayList<Agente> agentes, String ruta) {
+	public ArrayList<Agente> leerAgentesdelExcel(ArrayList<Agente> agentes, String ruta) {
 		ArrayList<Agente> aux = new ArrayList<Agente>();
 		
 		try {			
