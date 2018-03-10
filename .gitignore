@@ -64,4 +64,7 @@ local.properties
 correos/*.txt
 !correos/ejemplo.txt
 
+#DDBB
+DDBB/
+
 
