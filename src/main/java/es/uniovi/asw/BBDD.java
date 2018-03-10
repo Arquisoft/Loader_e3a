@@ -12,21 +12,27 @@ import org.hsqldb.jdbc.JDBCDriver;
 import dao.Agente;
 
 public class BBDD {
+	private String user;
+	private String pass;
+
+	public BBDD(String user, String pass) {
+		this.user = user;
+		this.pass = pass;
+	}
 
 	/**
 	 * Metodo que establece conexión con la base de datos local
 	 * 
 	 * @return objeto conexion
 	 */
-	public static Connection crearConexion() {
+	public Connection crearConexion() {
 		Connection conexion = null;
 		try {
 			DriverManager.registerDriver(new JDBCDriver());
 			String url = "jdbc:hsqldb:file:./DDBB/data/test";
 			// Descomentar para probar los test en local.
-			 //String url = "jdbc:hsqldb:hsql://localhost/";
-			String user = "SA";
-			String pass = "";
+			// String url = "jdbc:hsqldb:hsql://localhost/";
+
 			conexion = DriverManager.getConnection(url, user, pass);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -40,7 +46,7 @@ public class BBDD {
 	 * @param agentes,
 	 *            lista de agentes a insertar en la base de datos
 	 */
-	public static void insertarAgente(List<Agente> agentes) {
+	public void insertarAgente(List<Agente> agentes) {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
@@ -70,7 +76,7 @@ public class BBDD {
 	 * @param identificador
 	 *            del agente a borrar
 	 */
-	public static void eliminarAgente(String identificador) {
+	public void eliminarAgente(String identificador) {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
@@ -97,7 +103,7 @@ public class BBDD {
 	 * @param agente
 	 *            a actualizar
 	 */
-	public static void updateAgente(Agente agente) {
+	public void updateAgente(Agente agente) {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
@@ -121,7 +127,7 @@ public class BBDD {
 		}
 	}
 
-	public static Agente obtenerAgente(String identificador) {
+	public Agente obtenerAgente(String identificador) {
 		Connection con = crearConexion();
 		String consulta = "SELECT c.* FROM agente c WHERE c.identificador = ?";
 		Agente agente = null;
@@ -132,9 +138,8 @@ public class BBDD {
 			ps.setString(1, identificador);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				agente = new Agente(rs.getString("nombre"),
-						rs.getString("localizacion"), rs.getString("email"),
-		rs.getString("identificador"), rs.getInt("tipo"));
+				agente = new Agente(rs.getString("nombre"), rs.getString("localizacion"), rs.getString("email"),
+						rs.getString("identificador"), rs.getInt("tipo"));
 				agente.setPassword(rs.getString("password"));
 			}
 			rs.close();
@@ -150,7 +155,7 @@ public class BBDD {
 	 * Metodo que guarda en la base de datos la contraseña asociada al usuario que
 	 * se identifica con el identificador
 	 */
-	public static void guardaarPasswordUsuario(String identificador, String password) {
+	public void guardaarPasswordUsuario(String identificador, String password) {
 		Connection con = crearConexion();
 		String consulta = "update Agente set password = ? where identificador = ?";
 		PreparedStatement ps = null;
@@ -169,7 +174,7 @@ public class BBDD {
 	/**
 	 * Elimina todos los agentes
 	 */
-	public static void eliminarAgentes() {
+	public void eliminarAgentes() {
 		Connection con = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
