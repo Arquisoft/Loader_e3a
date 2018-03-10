@@ -20,10 +20,12 @@ import org.junit.Test;
 import dao.Agente;
 
 public class AplicationTest {
+	private BBDD bbdd;
 
 	@Before
 	public void before() {
-		BBDD.eliminarAgentes();
+		bbdd = new BBDD("SA", "");
+		bbdd.eliminarAgentes();
 	}
 
 	@Test
@@ -60,9 +62,10 @@ public class AplicationTest {
 
 		Agente c = new Agente("Pepe", "locprueba", "email@prueba", "identifPrueba", 1);
 		agentes.add(c);
-		BBDD.insertarAgente(agentes);
 
-		Agente cBD = BBDD.obtenerAgente("identifPrueba");
+		bbdd.insertarAgente(agentes);
+
+		Agente cBD = bbdd.obtenerAgente("identifPrueba");
 		assertNotNull(cBD);
 		assertEquals("Pepe", cBD.getNombre());
 		assertEquals("locprueba", cBD.getLocalizacion());
@@ -71,15 +74,21 @@ public class AplicationTest {
 
 		c.setEmail("otroemail@.com");
 
-		BBDD.updateAgente(c);
-		cBD = BBDD.obtenerAgente("identifPrueba");
+		bbdd.updateAgente(c);
+		cBD = bbdd.obtenerAgente("identifPrueba");
 		assertNotNull(cBD);
 		assertEquals("Pepe", cBD.getNombre());
 		assertEquals("otroemail@.com", cBD.getEmail());
 		assertEquals("identifPrueba", cBD.getIdentificador());
+		c.setNombre("Edu");
+		c.setLocalizacion("Australia");
 
-		BBDD.eliminarAgente("identifPrueba");
-		cBD = BBDD.obtenerAgente("identifPrueba");
+		bbdd.updateAgente(c);
+		cBD = bbdd.obtenerAgente("identifPrueba");
+		assertEquals("Edu", cBD.getNombre());
+		assertEquals("Australia", cBD.getLocalizacion());
+		bbdd.eliminarAgente("identifPrueba");
+		cBD = bbdd.obtenerAgente("identifPrueba");
 		assertNull(cBD);
 	}
 

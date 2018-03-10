@@ -11,7 +11,9 @@ public class MainPruebas {
 	public static void main(String[] args) {
 		String ruta = args[0];
 		String ruta2 = args[1];
-		BBDD.eliminarAgentes();
+
+		BBDD bbdd = new BBDD(args[2], args[3]);
+		bbdd.eliminarAgentes();
 		System.out.println("Vamos a cargar los tipos de agentes con el fichero maestro csv");
 		Csv.leerFicheroMaestro(ruta);
 		System.out.println("Fichero cargado correctamente");
@@ -20,7 +22,7 @@ public class MainPruebas {
 		ArrayList<Agente> agentes = new ArrayList<Agente>();
 		Leer leer = new Leer();
 		leer.leerAgentesdelExcel(agentes, ruta2);
-		BBDD.insertarAgente(agentes);
+		bbdd.insertarAgente(agentes);
 		System.out.println("Listado de Agentes Cargados");
 		for (Agente agente : agentes) {
 			System.out.println(agente.toString());

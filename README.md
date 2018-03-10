@@ -12,11 +12,11 @@ cd Loader_e3a
 
 Execute mvn package
 
-Execute java -jar target\Loader_e3a-0.0.1-jar-with-dependencies.jar src\main\java\es\uniovi\asw\tipos.csv src\main\java\es\uniovi\asw\agentes.xlsx
+Execute java -jar target\Loader_e3a-0.0.1-jar-with-dependencies.jar src\main\java\es\uniovi\asw\tipos.csv src\main\java\es\uniovi\asw\agentes.xlsx SA ""
 
 Or
 
-java -jar target/Loader_e3a-0.0.1-jar-with-dependencies.jar src/main/java/es/uniovi/asw/tipos.csv src/main/java/es/uniovi/asw/agentes.xlsx
+java -jar target/Loader_e3a-0.0.1-jar-with-dependencies.jar src/main/java/es/uniovi/asw/tipos.csv src/main/java/es/uniovi/asw/agentes.xlsx SA ""
 
 
 # Authors 2018
@@ -25,7 +25,6 @@ java -jar target/Loader_e3a-0.0.1-jar-with-dependencies.jar src/main/java/es/uni
 
 Álvaro González Carracedo (@AlvaroGonzalezC)
 
-José Luis Bugallo González (@joseluisbugallo)
 
 
 # Authors 2017
