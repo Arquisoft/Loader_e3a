@@ -90,9 +90,20 @@ public class AplicationTest {
 		cBD = bbdd.obtenerAgente("identifPrueba");
 		assertEquals("Edu", cBD.getNombre());
 		assertEquals("Australia", cBD.getLocalizacion());
+		c.setTipo(2);
+		
+		bbdd.updateAgente(c);
+		cBD = bbdd.obtenerAgente("identifPrueba");
+		assertNotNull(cBD);
+		assertEquals(2, cBD.getTipo());
+		assertEquals("Agente:\n\t Nombre: "+c.getNombre()+"\n\t Localizacion: "
+		+ c.getLocalizacion()+"\n\t Email: "+ c.getEmail()+"\n\t Identificador: "+ c.getIdentificador()
+		+"\n\t Tipo: "+ Csv.getHashMAp().get(c.getTipo())+"\n\t Contraseña: "+ c.getPassword(), cBD.toString());
+		
 		bbdd.eliminarAgente("identifPrueba");
 		cBD = bbdd.obtenerAgente("identifPrueba");
 		assertNull(cBD);
+		
 	}
 
 	@Test

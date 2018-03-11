@@ -23,7 +23,7 @@ public class Agente {
 
 	}
 	
-	public String toString (){
+	public String toString(){
         String mensaje="Agente:\n\t Nombre: "+getNombre()+"\n\t Localizacion: "+ getLocalizacion()+"\n\t Email: "+ getEmail()+"\n\t Identificador: "+ getIdentificador()+"\n\t Tipo: "+ Csv.getHashMAp().get(getTipo())+"\n\t Contraseña: "+ getPassword();
         return mensaje;
     }
