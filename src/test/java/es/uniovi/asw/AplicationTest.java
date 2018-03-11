@@ -30,11 +30,14 @@ public class AplicationTest {
 
 	@Test
 	public void testCargaFicherosCSV() {
-
+		
+		assertNotNull(Csv.getHashMAp());
+		
 		Csv.leerFicheroMaestro("./src/main/java/es/uniovi/asw/tipos.csv");
 		assertEquals("Person", Csv.csvmaestro.get(1));
 		assertEquals("Entity", Csv.csvmaestro.get(2));
 		assertEquals("Sensor", Csv.csvmaestro.get(3));
+		
 
 	}
 
@@ -125,6 +128,20 @@ public class AplicationTest {
 		assertTrue(fichero.exists());
 
 		fichero.delete();
+		
+		
+		Agente d = new Agente(null, "prueba", "email@prueba2", "identifPrueba2", 2);
+
+		assertNotNull(d.getPassword());
+
+		String rutaFichero2 = "./correos/" + c.getNombre() + ".txt";
+		File fichero2 = new File(rutaFichero2);
+		assertFalse(fichero2.exists());
+
+		CrearCorreo.mandarCorreo(d);
+
+		fichero = new File(rutaFichero);
+		assertFalse(fichero.exists());
 	}
 
 }
