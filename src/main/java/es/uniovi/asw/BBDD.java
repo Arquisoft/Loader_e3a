@@ -10,7 +10,9 @@ import java.util.List;
 
 import org.hsqldb.jdbc.JDBCDriver;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
+import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 
 import dao.Agente;
@@ -35,8 +37,8 @@ public class BBDD {
 		MongoClient mongoClient;
 		try {
 			mongoClient = new MongoClient();
-			db = mongoClient.getDB("database name");
-			boolean auth = db.authenticate("username", "password".toCharArray());
+			db = mongoClient.getDB("incidb");
+			boolean auth = db.authenticate("admin", "asw2".toCharArray());
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,23 +54,23 @@ public class BBDD {
 	 *            lista de agentes a insertar en la base de datos
 	 */
 	public void insertarAgente(List<Agente> agentes) {
-		Connection con = crearConexion();
+		DB db = crearConexion();
 		try {
 			StringBuilder sb = new StringBuilder();
 			sb.append("insert into AGENTE ");
-			sb.append("(nombre, localizacion, email, identificador, tipo, password) ");
+			sb.append("(nombre, latitud,longitud, email, identificador, tipo, password) ");
 			sb.append("values (?,?,?,?,?,?)");
-			PreparedStatement ps = con.prepareStatement(sb.toString());
+			DBCollection table = db.getCollection("agente");
+
 			for (Agente agen : agentes) {
-				ps.setString(1, agen.getNombre());
-				ps.setString(2, agen.getLocalizacion());
-				ps.setString(3, agen.getEmail());
-				ps.setString(4, agen.getIdentificador());
-				ps.setString(5, String.valueOf(agen.getTipo()));
-				ps.setString(6, agen.getPassword());
-				ps.execute();
+				BasicDBObject document = new BasicDBObject();
+				document.put("name", "mkyong");
+				document.put("age", 30);
+				document.put("createdDate", new Date());
+				table.insert(document);
+
 			}
-			con.close();
+
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace();
