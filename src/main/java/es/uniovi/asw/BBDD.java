@@ -1,5 +1,6 @@
 package es.uniovi.asw;
 
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +9,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.hsqldb.jdbc.JDBCDriver;
+
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
 
 import dao.Agente;
 
@@ -25,19 +29,20 @@ public class BBDD {
 	 * 
 	 * @return objeto conexion
 	 */
-	public Connection crearConexion() {
+	public DB crearConexion() {
 		Connection conexion = null;
+		DB db = null;
+		MongoClient mongoClient;
 		try {
-			DriverManager.registerDriver(new JDBCDriver());
-			String url = "jdbc:hsqldb:file:./DDBB/data/test";
-			// Descomentar para probar los test en local.
-			// String url = "jdbc:hsqldb:hsql://localhost/";
-
-			conexion = DriverManager.getConnection(url, user, pass);
-		} catch (SQLException e) {
+			mongoClient = new MongoClient();
+			db = mongoClient.getDB("database name");
+			boolean auth = db.authenticate("username", "password".toCharArray());
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return conexion;
+
+		return db;
 	}
 
 	/**
@@ -96,9 +101,9 @@ public class BBDD {
 	}
 
 	/**
-	 * Se actualizan los datos de un usuario. Los nuevos datos se añaden a un objeto
-	 * agente que sera el que se use para actualizar los datos (se basa en el
-	 * identificador)
+	 * Se actualizan los datos de un usuario. Los nuevos datos se añaden a un
+	 * objeto agente que sera el que se use para actualizar los datos (se basa
+	 * en el identificador)
 	 * 
 	 * @param agente
 	 *            a actualizar
@@ -152,8 +157,8 @@ public class BBDD {
 	}
 
 	/**
-	 * Metodo que guarda en la base de datos la contraseña asociada al usuario que
-	 * se identifica con el identificador
+	 * Metodo que guarda en la base de datos la contraseña asociada al usuario
+	 * que se identifica con el identificador
 	 */
 	public void guardaarPasswordUsuario(String identificador, String password) {
 		Connection con = crearConexion();

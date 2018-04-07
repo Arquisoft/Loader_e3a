@@ -29,10 +29,6 @@ public class Xlsx {
 					aux.add(row.getCell(i) != null ? row.getCell(i).toString() : "");
 				}
 
-				//String nombre = row.getCell(0) != null ? row.getCell(0).toString() : null;
-				//if (nombre != null && nombre.equals("Nombre"))
-				//	continue;
-
 				int tipo= (int) Double.parseDouble(aux.get(4).toString());
 				String localizacion="";
 				if(!aux.get(1).equals(null))
