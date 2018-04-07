@@ -6,10 +6,26 @@ import es.uniovi.asw.Csv;
 
 public class Agente {
 	private String nombre, latitud, longitud, email, identificador;
-	private int tipo;
+	public String getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(String latitud) {
+		this.latitud = latitud;
+	}
+
+	public String getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(String longitud) {
+		this.longitud = longitud;
+	}
+
+	private String tipo;
 	private String contrasena;
 
-	public Agente(String nombre, String latitud, String longitud, String email, String identificador, int tipo,
+	public Agente(String nombre, String latitud, String longitud, String email, String identificador, String tipo,
 			String contrasena) {
 		super();
 		this.nombre = nombre;
@@ -52,11 +68,11 @@ public class Agente {
 		this.identificador = identificador;
 	}
 
-	public int getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(int tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 

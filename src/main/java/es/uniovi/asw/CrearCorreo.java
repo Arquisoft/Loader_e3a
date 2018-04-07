@@ -23,7 +23,7 @@ public class CrearCorreo {
 			cadena += "Usted a sido dado de alta con exito en el sistema.\n";
 			cadena += "Sus credenciales son:\n";
 			cadena += "\tUsuario: " + agente.getIdentificador() + "\n";
-			cadena += "\tContraseña: " + agente.getPassword() + "\n";
+			cadena += "\tContraseña: " + agente.getContrasena()+ "\n";
 			cadena += "\nUn saludo y gracias por darse de alta.\n";
 			cadena += "\nAtentamente un saludo.";
 			fileWriter.write(cadena);

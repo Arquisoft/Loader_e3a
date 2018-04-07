@@ -37,7 +37,7 @@ public class BBDD {
 		MongoClient mongoClient;
 		try {
 			mongoClient = new MongoClient();
-			db = mongoClient.getDB("incidb");
+			db = mongoClient.getDB("agents");
 			boolean auth = db.authenticate("admin", "asw2".toCharArray());
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -55,25 +55,18 @@ public class BBDD {
 	 */
 	public void insertarAgente(List<Agente> agentes) {
 		DB db = crearConexion();
-		try {
-			StringBuilder sb = new StringBuilder();
-			sb.append("insert into AGENTE ");
-			sb.append("(nombre, latitud,longitud, email, identificador, tipo, password) ");
-			sb.append("values (?,?,?,?,?,?)");
-			DBCollection table = db.getCollection("agente");
+		DBCollection table = db.getCollection("agente");
+		BasicDBObject document = new BasicDBObject();
+		for (Agente agen : agentes) {
+			document.put("nombre", agen.getNombre());
+			document.put("contrasena", agen.getContrasena());
+			document.put("kind", agen.getTipo());
+			document.put("identificador", agen.getIdentificador());
+			document.put("latitud", agen.getLatitud());
+			document.put("logitud", agen.getLongitud());
+			document.put("email", agen.getEmail());
+			table.insert(document);
 
-			for (Agente agen : agentes) {
-				BasicDBObject document = new BasicDBObject();
-				document.put("name", "mkyong");
-				document.put("age", 30);
-				document.put("createdDate", new Date());
-				table.insert(document);
-
-			}
-
-		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
 		}
 	}
 
@@ -84,21 +77,7 @@ public class BBDD {
 	 *            del agente a borrar
 	 */
 	public void eliminarAgente(String identificador) {
-		Connection con = crearConexion();
-		try {
-			StringBuilder sb = new StringBuilder();
-			sb.append("delete from AGENTE ");
-			sb.append("where identificador = ?");
-			PreparedStatement ps = con.prepareStatement(sb.toString());
-			ps.setString(1, identificador);
-			ps.execute();
-			ps.close();
-			con.close();
-		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			System.err.print("Seguramente es porque el formato identificador es incorrecto");
-			e.printStackTrace();
-		}
+	
 
 	}
 
@@ -111,51 +90,12 @@ public class BBDD {
 	 *            a actualizar
 	 */
 	public void updateAgente(Agente agente) {
-		Connection con = crearConexion();
-		try {
-			StringBuilder sb = new StringBuilder();
-			sb.append("UPDATE AGENTE "
-					+ "set nombre= ?, localizacion= ?, email= ?, identificador= ?, tipo= ?, password= ?"
-					+ "where identificador=?");
-			PreparedStatement ps = con.prepareStatement(sb.toString());
-			ps.setString(1, agente.getNombre());
-			ps.setString(2, agente.getLocalizacion());
-			ps.setString(3, agente.getEmail());
-			ps.setString(4, agente.getIdentificador());
-			ps.setInt(5, agente.getTipo());
-			ps.setString(6, agente.getPassword());
-			ps.setString(7, agente.getIdentificador());
-			ps.executeUpdate();
-			ps.close();
-			con.close();
-		} catch (SQLException e) {
-			System.err.println("no existe el agente especificado");
-			e.printStackTrace();
-		}
+		
 	}
 
 	public Agente obtenerAgente(String identificador) {
-		Connection con = crearConexion();
-		String consulta = "SELECT c.* FROM agente c WHERE c.identificador = ?";
-		Agente agente = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			ps = con.prepareStatement(consulta);
-			ps.setString(1, identificador);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				agente = new Agente(rs.getString("nombre"), rs.getString("localizacion"), rs.getString("email"),
-						rs.getString("identificador"), rs.getInt("tipo"));
-				agente.setPassword(rs.getString("password"));
-			}
-			rs.close();
-			ps.close();
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return agente;
+		return null;
+		
 	}
 
 	/**
@@ -163,38 +103,14 @@ public class BBDD {
 	 * que se identifica con el identificador
 	 */
 	public void guardaarPasswordUsuario(String identificador, String password) {
-		Connection con = crearConexion();
-		String consulta = "update Agente set password = ? where identificador = ?";
-		PreparedStatement ps = null;
-		try {
-			ps = con.prepareStatement(consulta);
-			ps.setString(1, password);
-			ps.setString(2, identificador);
-			ps.executeUpdate();
-			ps.close();
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+
 	}
 
 	/**
 	 * Elimina todos los agentes
 	 */
 	public void eliminarAgentes() {
-		Connection con = crearConexion();
-		try {
-			StringBuilder sb = new StringBuilder();
-			sb.append("delete from AGENTE ");
-			PreparedStatement ps = con.prepareStatement(sb.toString());
-			ps.execute();
-			ps.close();
-			con.close();
-		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			System.err.print("Error al borrar todos los agentes");
-			e.printStackTrace();
-		}
+	
 	}
 
 }
