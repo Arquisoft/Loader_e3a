@@ -5,32 +5,16 @@ import java.util.Random;
 import es.uniovi.asw.Csv;
 
 public class Agente {
-	private String nombre, latitud, longitud, email, identificador;
-	public String getLatitud() {
-		return latitud;
-	}
-
-	public void setLatitud(String latitud) {
-		this.latitud = latitud;
-	}
-
-	public String getLongitud() {
-		return longitud;
-	}
-
-	public void setLongitud(String longitud) {
-		this.longitud = longitud;
-	}
+	private String nombre, localizacion, email, identificador;
 
 	private String tipo;
 	private String contrasena;
 
-	public Agente(String nombre, String latitud, String longitud, String email, String identificador, String tipo,
-			String contrasena) {
-		super();
+	public Agente(String nombre, String localizacion, String email, String identificador, String tipo) {
+		
 		this.nombre = nombre;
-		this.latitud = latitud;
-		this.longitud = longitud;
+		this.localizacion = localizacion;
+	
 		this.email = email;
 		this.identificador = identificador;
 		this.tipo = tipo;
@@ -38,11 +22,27 @@ public class Agente {
 		crearPassword();
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "Agente [nombre=" + nombre + ", latitud=" + latitud + ", longitud=" + longitud + ", email=" + email
-				+ ", identificador=" + identificador + ", tipo=" + tipo + ", contrasena=" + contrasena + "]";
+		return "Agente [nombre=" + nombre + ", localizacion=" + localizacion + ", email=" + email + ", identificador="
+				+ identificador + ", tipo=" + tipo + ", contrasena=" + contrasena + "]";
 	}
+
+
+
+	public String getLocalizacion() {
+		return localizacion;
+	}
+
+
+
+	public void setLocalizacion(String localizacion) {
+		this.localizacion = localizacion;
+	}
+
+
 
 	public String getNombre() {
 		return nombre;

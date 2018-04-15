@@ -12,7 +12,7 @@ public class MainPruebas {
 		String ruta = args[0];
 		String ruta2 = args[1];
 
-		BBDD bbdd = new BBDD(args[2], args[3]);
+		BBDD bbdd = new BBDD();
 		bbdd.eliminarAgentes();
 		System.out.println("Vamos a cargar los tipos de agentes con el fichero maestro csv");
 		Csv.leerFicheroMaestro(ruta);

@@ -17,6 +17,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.mongodb.DBObject;
+
 import dao.Agente;
 
 public class AplicationTest {
@@ -24,20 +26,19 @@ public class AplicationTest {
 
 	@Before
 	public void before() {
-		bbdd = new BBDD("SA", "");
-		bbdd.eliminarAgentes();
+		bbdd = new BBDD();
+//		bbdd.eliminarAgentes();
 	}
 
 	@Test
 	public void testCargaFicherosCSV() {
-		
+
 		assertNotNull(Csv.getHashMAp());
-		
-		Csv.leerFicheroMaestro("./src/main/java/es/uniovi/asw/tipos.csv");
+
+		Csv.leerFicheroMaestro("./src/main/java/es/uniovi/asw/kinds.csv");
 		assertEquals("Person", Csv.csvmaestro.get(1));
 		assertEquals("Entity", Csv.csvmaestro.get(2));
 		assertEquals("Sensor", Csv.csvmaestro.get(3));
-		
 
 	}
 
@@ -63,47 +64,47 @@ public class AplicationTest {
 	public void addAgenteTest() {
 		List<Agente> agentes = new ArrayList<Agente>();
 
-		Agente c = new Agente("Pepe", "locprueba", "email@prueba", "identifPrueba", 1);
+		Agente c = new Agente("Pepe", "locprueba", "email@prueba", "identifPrueba", "person");
 		agentes.add(c);
 
 		bbdd.insertarAgente(agentes);
 
-		Agente cBD = bbdd.obtenerAgente("identifPrueba");
+		DBObject cBD = bbdd.obtenerAgente("identifPrueba");
 		assertNotNull(cBD);
-		assertEquals("Pepe", cBD.getNombre());
-		assertEquals("locprueba", cBD.getLocalizacion());
-		assertEquals("email@prueba", cBD.getEmail());
-		assertEquals("identifPrueba", cBD.getIdentificador());
+		assertEquals("Pepe", cBD.get("nombre"));
+		assertEquals("locprueba", cBD.get("localizacion"));
+		assertEquals("email@prueba", cBD.get("email"));
+		assertEquals("identifPrueba", cBD.get("identificador"));
 
 		c.setEmail("otroemail@.com");
 
 		bbdd.updateAgente(c);
 		cBD = bbdd.obtenerAgente("identifPrueba");
 		assertNotNull(cBD);
-		assertEquals("Pepe", cBD.getNombre());
-		assertEquals("otroemail@.com", cBD.getEmail());
-		assertEquals("identifPrueba", cBD.getIdentificador());
+		assertEquals("Pepe", cBD.get("nombre"));
+		assertEquals("email@prueba", cBD.get("email"));
+		assertEquals("identifPrueba", cBD.get("identificador"));
 		c.setNombre("Edu");
 		c.setLocalizacion("Australia");
 
 		bbdd.updateAgente(c);
 		cBD = bbdd.obtenerAgente("identifPrueba");
-		assertEquals("Edu", cBD.getNombre());
-		assertEquals("Australia", cBD.getLocalizacion());
-		c.setTipo(2);
-		
+		assertEquals("Edu", cBD.get("nombre"));
+		assertEquals("Australia", cBD.get("localizacion"));
+		c.setTipo("entity");
+
 		bbdd.updateAgente(c);
 		cBD = bbdd.obtenerAgente("identifPrueba");
 		assertNotNull(cBD);
-		assertEquals(2, cBD.getTipo());
-		assertEquals("Agente:\n\t Nombre: "+c.getNombre()+"\n\t Localizacion: "
-		+ c.getLocalizacion()+"\n\t Email: "+ c.getEmail()+"\n\t Identificador: "+ c.getIdentificador()
-		+"\n\t Tipo: "+ Csv.getHashMAp().get(c.getTipo())+"\n\t Contraseña: "+ c.getPassword(), cBD.toString());
-		
+		assertEquals("entity", cBD.get("kind"));
+		assertEquals("Agente:\n\t Nombre: " + c.getNombre() + "\n\t Localizacion: " + c.getLocalizacion()
+				+ "\n\t Email: " + c.getEmail() + "\n\t Identificador: " + c.getIdentificador() + "\n\t Tipo: "
+				+ Csv.getHashMAp().get(c.getTipo()) + "\n\t Contraseña: " + c.getContrasena(), cBD.toString());
+
 		bbdd.eliminarAgente("identifPrueba");
 		cBD = bbdd.obtenerAgente("identifPrueba");
 		assertNull(cBD);
-		
+
 	}
 
 	@Test
@@ -125,9 +126,9 @@ public class AplicationTest {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testCrearCorreo() {
-		Agente c = new Agente("Pepe", "locprueba", "email@prueba", "identifPrueba", 1);
+		Agente c = new Agente("Pepe", "locprueba", "email@prueba", "identifPrueba", "person");
 
-		assertNotNull(c.getPassword());
+		assertNotNull(c.getContrasena());
 
 		String rutaFichero = "./correos/" + c.getNombre() + ".txt";
 		File fichero = new File(rutaFichero);
@@ -139,11 +140,10 @@ public class AplicationTest {
 		assertTrue(fichero.exists());
 
 		fichero.delete();
-		
-		
-		Agente d = new Agente(null, "prueba", "email@prueba2", "identifPrueba2", 2);
 
-		assertNotNull(d.getPassword());
+		Agente d = new Agente(null, "prueba", "email@prueba2", "identifPrueba2", "sensor");
+
+		assertNotNull(d.getContrasena());
 
 		String rutaFichero2 = "./correos/" + c.getNombre() + ".txt";
 		File fichero2 = new File(rutaFichero2);

@@ -13,17 +13,15 @@ import org.hsqldb.jdbc.JDBCDriver;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
 import dao.Agente;
 
 public class BBDD {
-	private String user;
-	private String pass;
 
-	public BBDD(String user, String pass) {
-		this.user = user;
-		this.pass = pass;
+	public BBDD() {
+
 	}
 
 	/**
@@ -32,12 +30,12 @@ public class BBDD {
 	 * @return objeto conexion
 	 */
 	public DB crearConexion() {
-		Connection conexion = null;
+
 		DB db = null;
 		MongoClient mongoClient;
 		try {
-			mongoClient = new MongoClient();
-			db = mongoClient.getDB("agents");
+			mongoClient = new MongoClient("ds221339.mlab.com", 21339);
+			db = mongoClient.getDB("agentsdb");
 			boolean auth = db.authenticate("admin", "asw2".toCharArray());
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -55,15 +53,14 @@ public class BBDD {
 	 */
 	public void insertarAgente(List<Agente> agentes) {
 		DB db = crearConexion();
-		DBCollection table = db.getCollection("agente");
+		DBCollection table = db.getCollection("agents");
 		BasicDBObject document = new BasicDBObject();
 		for (Agente agen : agentes) {
 			document.put("nombre", agen.getNombre());
 			document.put("contrasena", agen.getContrasena());
 			document.put("kind", agen.getTipo());
 			document.put("identificador", agen.getIdentificador());
-			document.put("latitud", agen.getLatitud());
-			document.put("logitud", agen.getLongitud());
+			document.put("localizacion", agen.getLocalizacion());
 			document.put("email", agen.getEmail());
 			table.insert(document);
 
@@ -77,8 +74,11 @@ public class BBDD {
 	 *            del agente a borrar
 	 */
 	public void eliminarAgente(String identificador) {
-	
-
+		DB db = crearConexion();
+		DBCollection collection = db.getCollection("agents");
+		BasicDBObject document = new BasicDBObject();
+		document.put("identificador", identificador);
+		collection.findAndRemove(document);
 	}
 
 	/**
@@ -89,28 +89,41 @@ public class BBDD {
 	 * @param agente
 	 *            a actualizar
 	 */
-	public void updateAgente(Agente agente) {
-		
+	public void updateAgente(Agente agen) {
+		DB db = crearConexion();
+		DBCollection collection = db.getCollection("agents");
+		BasicDBObject searchObject = new BasicDBObject();
+
+		searchObject.put("identificador", agen.getIdentificador());
+
+		DBObject modifiedObject = new BasicDBObject();
+		modifiedObject.put("nombre", agen.getNombre());
+		modifiedObject.put("contrasena", agen.getContrasena());
+		modifiedObject.put("kind", agen.getTipo());
+		modifiedObject.put("identificador", agen.getIdentificador());
+		modifiedObject.put("latitud", agen.getLocalizacion());
+		modifiedObject.put("email", agen.getEmail());
+		collection.update(searchObject, modifiedObject, true, false);
+
 	}
 
-	public Agente obtenerAgente(String identificador) {
-		return null;
-		
-	}
+	public DBObject obtenerAgente(String identificador) {
 
-	/**
-	 * Metodo que guarda en la base de datos la contraseña asociada al usuario
-	 * que se identifica con el identificador
-	 */
-	public void guardaarPasswordUsuario(String identificador, String password) {
-
+		DB db = crearConexion();
+		DBCollection collection = db.getCollection("agents");
+		BasicDBObject searchObject = new BasicDBObject();
+		searchObject.put("identificador", identificador);
+		DBObject search = collection.findOne(searchObject);
+		return search;
 	}
 
 	/**
 	 * Elimina todos los agentes
 	 */
 	public void eliminarAgentes() {
-	
+		DB db = crearConexion();
+		DBCollection collection = db.getCollection("agents");
+		collection.drop();
 	}
 
 }
