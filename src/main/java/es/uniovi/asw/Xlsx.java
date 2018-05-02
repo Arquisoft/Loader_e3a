@@ -30,12 +30,16 @@ public class Xlsx {
 
 				int tipo = (int) Double.parseDouble(aux.get(4).toString());
 				String localizacion = "";
-				if (!aux.get(1).equals(null)) {
-					localizacion = aux.get(1).toString();
-				}
 
-				Agente agente = new Agente(aux.get(0).toString(), localizacion, aux.get(2).toString(),
-						aux.get(3).toString(), Csv.getHashMAp().get(tipo));
+				if (!aux.get(1).equals("")) {
+					localizacion = aux.get(1).toString();
+					String[] s = localizacion.split(";");
+					Agente agente = new Agente(aux.get(0).toString(), s[0], s[1], aux.get(2).toString(),
+							aux.get(3).toString(), Csv.getHashMAp().get(tipo));
+				}
+				
+				Agente agente = new Agente(aux.get(0).toString(), aux.get(2).toString(), aux.get(3).toString(),
+						Csv.getHashMAp().get(tipo));
 				agentes.add(agente);
 
 			}

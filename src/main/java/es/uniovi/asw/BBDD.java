@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.bson.BSON;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.hsqldb.jdbc.JDBCDriver;
 
 import com.mongodb.BasicDBObject;
@@ -15,13 +18,16 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 
 import dao.Agente;
 
 public class BBDD {
 
 	public BBDD() {
-
+		crearConexion();
 	}
 
 	/**
@@ -29,20 +35,13 @@ public class BBDD {
 	 * 
 	 * @return objeto conexion
 	 */
-	public DB crearConexion() {
+	public MongoDatabase crearConexion() {
 
-		DB db = null;
-		MongoClient mongoClient;
-		try {
-			mongoClient = new MongoClient("ds221339.mlab.com", 21339);
-			db = mongoClient.getDB("agentsdb");
-			boolean auth = db.authenticate("admin", "asw2".toCharArray());
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		MongoClientURI uri = new MongoClientURI("mongodb://adload:adload@ds221339.mlab.com:21339/agentsdb");
+		MongoClient client = new MongoClient(uri);
+		MongoDatabase database = client.getDatabase("agentsdb");
 
-		return db;
+		return database;
 	}
 
 	/**
@@ -52,17 +51,18 @@ public class BBDD {
 	 *            lista de agentes a insertar en la base de datos
 	 */
 	public void insertarAgente(List<Agente> agentes) {
-		DB db = crearConexion();
-		DBCollection table = db.getCollection("agents");
-		BasicDBObject document = new BasicDBObject();
+		MongoDatabase db = crearConexion();
+		MongoCollection<Document> table = db.getCollection("agents");
+		Document document = new Document();
 		for (Agente agen : agentes) {
 			document.put("nombre", agen.getNombre());
 			document.put("contrasena", agen.getContrasena());
 			document.put("kind", agen.getTipo());
 			document.put("identificador", agen.getIdentificador());
-			document.put("localizacion", agen.getLocalizacion());
+			document.put("longitud", agen.getLongitud());
+			document.put("latitud", agen.getLatitud());
 			document.put("email", agen.getEmail());
-			table.insert(document);
+			table.insertOne(document);
 
 		}
 	}
@@ -74,11 +74,11 @@ public class BBDD {
 	 *            del agente a borrar
 	 */
 	public void eliminarAgente(String identificador) {
-		DB db = crearConexion();
-		DBCollection collection = db.getCollection("agents");
-		BasicDBObject document = new BasicDBObject();
+		MongoDatabase db = crearConexion();
+		MongoCollection<Document> table = db.getCollection("agents");
+		Document document = new Document();
 		document.put("identificador", identificador);
-		collection.findAndRemove(document);
+		table.findOneAndDelete(document);
 	}
 
 	/**
@@ -90,30 +90,56 @@ public class BBDD {
 	 *            a actualizar
 	 */
 	public void updateAgente(Agente agen) {
-		DB db = crearConexion();
-		DBCollection collection = db.getCollection("agents");
-		BasicDBObject searchObject = new BasicDBObject();
+		MongoDatabase db = crearConexion();
+		MongoCollection<Document> collection = db.getCollection("agents");
 
-		searchObject.put("identificador", agen.getIdentificador());
+		Document searchObject = obtenerAgente(agen.getIdentificador());
 
-		DBObject modifiedObject = new BasicDBObject();
-		modifiedObject.put("nombre", agen.getNombre());
-		modifiedObject.put("contrasena", agen.getContrasena());
-		modifiedObject.put("kind", agen.getTipo());
-		modifiedObject.put("identificador", agen.getIdentificador());
-		modifiedObject.put("latitud", agen.getLocalizacion());
-		modifiedObject.put("email", agen.getEmail());
-		collection.update(searchObject, modifiedObject, true, false);
+	
+		Bson modifiedObject = new Document("nombre", agen.getNombre());
+	    Bson update=new Document("$set",modifiedObject);
+		collection.updateOne(searchObject, update);
+		searchObject = obtenerAgente(agen.getIdentificador());
+		
+		modifiedObject = new Document("contrasena", agen.getContrasena());
+	    update=new Document("$set",modifiedObject);
+		collection.updateOne(searchObject,  update);
+		searchObject = obtenerAgente(agen.getIdentificador());
+		
+		modifiedObject = new Document("kind", agen.getTipo());
+		update=new Document("$set",modifiedObject);
+		collection.updateOne(searchObject, update);
+		searchObject = obtenerAgente(agen.getIdentificador());
+		
+		modifiedObject = new Document("identificador", agen.getIdentificador());
+		update=new Document("$set",modifiedObject);
+		collection.updateOne(searchObject, update);
+		searchObject = obtenerAgente(agen.getIdentificador());
+		
+		modifiedObject = new Document("longitud", agen.getLongitud());
+		update=new Document("$set",modifiedObject);
+		collection.updateOne(searchObject,  update);
+		searchObject = obtenerAgente(agen.getIdentificador());
+		
+		modifiedObject = new Document("latitud", agen.getLatitud());
+		update=new Document("$set",modifiedObject);
+		collection.updateOne(searchObject,  update);
+		searchObject = obtenerAgente(agen.getIdentificador());
+		
+		modifiedObject = new Document("email", agen.getEmail());
+		update=new Document("$set",modifiedObject);
+		collection.updateOne(searchObject,  update);
 
 	}
 
-	public DBObject obtenerAgente(String identificador) {
+	public Document obtenerAgente(String identificador) {
 
-		DB db = crearConexion();
-		DBCollection collection = db.getCollection("agents");
-		BasicDBObject searchObject = new BasicDBObject();
+		MongoDatabase db = crearConexion();
+		MongoCollection<Document> collection = db.getCollection("agents");
+
+		Document searchObject = new Document();
 		searchObject.put("identificador", identificador);
-		DBObject search = collection.findOne(searchObject);
+		Document search = collection.find(searchObject).first();
 		return search;
 	}
 
@@ -121,8 +147,8 @@ public class BBDD {
 	 * Elimina todos los agentes
 	 */
 	public void eliminarAgentes() {
-		DB db = crearConexion();
-		DBCollection collection = db.getCollection("agents");
+		MongoDatabase db = crearConexion();
+		MongoCollection<Document> collection = db.getCollection("agents");
 		collection.drop();
 	}
 

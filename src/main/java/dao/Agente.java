@@ -5,44 +5,45 @@ import java.util.Random;
 import es.uniovi.asw.Csv;
 
 public class Agente {
-	private String nombre, localizacion, email, identificador;
+	private String nombre, latitud, email, identificador, longitud;
 
 	private String tipo;
 	private String contrasena;
 
-	public Agente(String nombre, String localizacion, String email, String identificador, String tipo) {
-		
+	public Agente(String nombre, String latitud, String longitud, String email, String identificador, String tipo) {
+
 		this.nombre = nombre;
-		this.localizacion = localizacion;
-	
+		this.latitud = latitud;
+		this.setLongitud(longitud);
 		this.email = email;
 		this.identificador = identificador;
 		this.tipo = tipo;
-		this.contrasena = contrasena;
 		crearPassword();
 	}
 
+	public Agente(String nombre, String email, String identificador, String tipo) {
 
+		this.nombre = nombre;
+
+		this.email = email;
+		this.identificador = identificador;
+		this.tipo = tipo;
+		crearPassword();
+	}
 
 	@Override
 	public String toString() {
-		return "Agente [nombre=" + nombre + ", localizacion=" + localizacion + ", email=" + email + ", identificador="
-				+ identificador + ", tipo=" + tipo + ", contrasena=" + contrasena + "]";
+		return "Agente [nombre=" + nombre + ", latitud=" + latitud + ", email=" + email + ", identificador="
+				+ identificador + ", longitud=" + longitud + ", tipo=" + tipo + ", contrasena=" + contrasena + "]";
 	}
 
-
-
-	public String getLocalizacion() {
-		return localizacion;
+	public String getLatitud() {
+		return latitud;
 	}
 
-
-
-	public void setLocalizacion(String localizacion) {
-		this.localizacion = localizacion;
+	public void setLatitud(String latitud) {
+		this.latitud = latitud;
 	}
-
-
 
 	public String getNombre() {
 		return nombre;
@@ -112,6 +113,14 @@ public class Agente {
 
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
+	}
+
+	public String getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(String longitud) {
+		this.longitud = longitud;
 	}
 
 }
