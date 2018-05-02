@@ -5,28 +5,45 @@ import java.util.Random;
 import es.uniovi.asw.Csv;
 
 public class Agente {
-	private String nombre, localizacion, email, identificador;
-	private int tipo;
-	private String password;
+	private String nombre, latitud, email, identificador, longitud;
 
-	public Agente(String nombre, String localizacion,
-			String email, String identificador, int tipo) {
-		super();
+	private String tipo;
+	private String contrasena;
+
+	public Agente(String nombre, String latitud, String longitud, String email, String identificador, String tipo) {
+
 		this.nombre = nombre;
-		if(localizacion!=null)
-			this.localizacion = localizacion;
-		
+		this.latitud = latitud;
+		this.setLongitud(longitud);
 		this.email = email;
 		this.identificador = identificador;
 		this.tipo = tipo;
 		crearPassword();
-
 	}
-	
-	public String toString(){
-        String mensaje="Agente:\n\t Nombre: "+getNombre()+"\n\t Localizacion: "+ getLocalizacion()+"\n\t Email: "+ getEmail()+"\n\t Identificador: "+ getIdentificador()+"\n\t Tipo: "+ Csv.getHashMAp().get(getTipo())+"\n\t Contraseña: "+ getPassword();
-        return mensaje;
-    }
+
+	public Agente(String nombre, String email, String identificador, String tipo) {
+
+		this.nombre = nombre;
+
+		this.email = email;
+		this.identificador = identificador;
+		this.tipo = tipo;
+		crearPassword();
+	}
+
+	@Override
+	public String toString() {
+		return "Agente [nombre=" + nombre + ", latitud=" + latitud + ", email=" + email + ", identificador="
+				+ identificador + ", longitud=" + longitud + ", tipo=" + tipo + ", contrasena=" + contrasena + "]";
+	}
+
+	public String getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(String latitud) {
+		this.latitud = latitud;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -34,14 +51,6 @@ public class Agente {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getLocalizacion() {
-		return localizacion;
-	}
-
-	public void setLocalizacion(String localizacion) {
-		this.localizacion = localizacion;
 	}
 
 	public String getEmail() {
@@ -60,16 +69,16 @@ public class Agente {
 		this.identificador = identificador;
 	}
 
-	public int getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(int tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
 	public void crearPassword() {
-		setPassword("");
+		setContrasena("");
 		char[] minusculas = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 		char[] mayusculas = "abcdefghijklmnopqrstuvwxyz".toUpperCase().toCharArray();
 		char[] numeros = "0123456789".toCharArray();
@@ -78,32 +87,40 @@ public class Agente {
 		// Tiene una letra mayuscula
 		Random random = new Random();
 		int pos = random.nextInt(mayusculas.length);
-		setPassword(getPassword() + mayusculas[pos]);
+		setContrasena(getContrasena() + mayusculas[pos]);
 
 		// Tiene 5 letras minusculas
 		for (int i = 0; i < 5; i++) {
 			random = new Random();
 			pos = random.nextInt(minusculas.length);
-			setPassword(getPassword() + minusculas[pos]);
+			setContrasena(getContrasena() + minusculas[pos]);
 		}
 
 		// Tiene un numero
 		random = new Random();
 		pos = random.nextInt(numeros.length);
-		setPassword(getPassword() + numeros[pos]);
+		setContrasena(getContrasena() + numeros[pos]);
 
 		// Tiene un simbolo especial
 		random = new Random();
 		pos = random.nextInt(simbolos.length);
-		setPassword(getPassword() + simbolos[pos]);
+		setContrasena(getContrasena() + simbolos[pos]);
 	}
 
-	public String getPassword() {
-		return password;
+	public String getContrasena() {
+		return contrasena;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+
+	public String getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(String longitud) {
+		this.longitud = longitud;
 	}
 
 }
