@@ -12,6 +12,7 @@ public class Leer implements ReadList{
 		try {			
 			aux = Xlsx.leerAgentes(agentes, ruta);
 		} catch (Exception e) {
+			
 			System.out.println("Extensión no soportada");
 		} catch (Error e) {
 			System.out.println("Extensión no soportada");
