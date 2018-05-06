@@ -1,7 +1,10 @@
 package es.uniovi.asw;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -30,16 +33,18 @@ public class Xlsx {
 
 				int tipo = (int) Double.parseDouble(aux.get(4).toString());
 				String localizacion = "";
-
+				Agente agente;
 				if (!aux.get(1).equals("")) {
 					localizacion = aux.get(1).toString();
 					String[] s = localizacion.split(";");
-					Agente agente = new Agente(aux.get(0).toString(), s[0], s[1], aux.get(2).toString(),
-							aux.get(3).toString(), Csv.getHashMAp().get(tipo));
+					agente = new Agente(aux.get(0).toString(), s[0], s[1], aux.get(2).toString(), aux.get(3).toString(),
+							Csv.getHashMAp().get(tipo));
+				} else {
+
+					agente = new Agente(aux.get(0).toString(), aux.get(2).toString(), aux.get(3).toString(),
+							Csv.getHashMAp().get(tipo));
 				}
-				
-				Agente agente = new Agente(aux.get(0).toString(), aux.get(2).toString(), aux.get(3).toString(),
-						Csv.getHashMAp().get(tipo));
+
 				agentes.add(agente);
 
 			}
@@ -47,6 +52,19 @@ public class Xlsx {
 			file.close();
 			workbook.close();
 		} catch (Exception e) {
+			String rutaa = "./errores" + e.getMessage() + ".txt";
+			File archivo = new File(rutaa);
+			BufferedWriter bw;
+
+			try {
+				bw = new BufferedWriter(new FileWriter(archivo));
+				bw.write("Error al leer del excel xlsx Mensaje: " + e.getMessage());
+				bw.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				System.err.println("Error al crear fichero de errores en XLSX " + e1.getMessage());
+			}
+
 			System.err.println("Error al leer del excel xlsx Mensaje: " + e.getMessage());
 		}
 		return agentes;
