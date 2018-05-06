@@ -18,6 +18,11 @@ public class Csv {
 		return csvmaestro;
 	}
 
+	/**
+	 * Método que lee del fichero de tipos
+	 * 
+	 * @param ruta
+	 */
 	public static void leerFicheroMaestro(String ruta) {
 		try {
 			FileInputStream is = new FileInputStream(ruta);
@@ -27,7 +32,7 @@ public class Csv {
 			String str = "";
 
 			while ((str = buffReader.readLine()) != null) {
-		
+
 				String[] trozos = str.split(",");
 				int clave = Integer.valueOf(trozos[0]);
 				csvmaestro.put(clave, trozos[1].toString());

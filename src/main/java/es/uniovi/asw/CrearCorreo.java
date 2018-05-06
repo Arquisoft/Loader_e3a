@@ -9,11 +9,16 @@ import dao.Agente;
 
 public class CrearCorreo {
 
+	/**
+	 * Método que genera los correos para los agentes con sus usuarios y contraseñas
+	 * 
+	 * @param agente
+	 */
 	public static void mandarCorreo(Agente agente) {
 		File file = null;
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
-		
+
 		try {
 			String nombre = agente.getNombre();
 			file = new File("./correos/" + nombre + ".txt");
@@ -23,7 +28,7 @@ public class CrearCorreo {
 			cadena += "Usted a sido dado de alta con exito en el sistema.\n";
 			cadena += "Sus credenciales son:\n";
 			cadena += "\tUsuario: " + agente.getIdentificador() + "\n";
-			cadena += "\tContraseña: " + agente.getContrasena()+ "\n";
+			cadena += "\tContraseña: " + agente.getContrasena() + "\n";
 			cadena += "\nUn saludo y gracias por darse de alta.\n";
 			cadena += "\nAtentamente un saludo.";
 			fileWriter.write(cadena);
@@ -39,9 +44,9 @@ public class CrearCorreo {
 				System.out.println("Error cerrando el fichero");
 				e.printStackTrace();
 			}
-			
+
 		}
 
 	}
-	
+
 }

@@ -16,6 +16,15 @@ import dao.Agente;
 
 public class Xlsx {
 
+	/**
+	 * Metodo que lee los agentes del excel
+	 * 
+	 * @param agentes
+	 *            lista donde se van a añadir los agentes
+	 * @param ruta
+	 *            ruta del archivo de excel
+	 * @return la lista donde se añadieron los agentes
+	 */
 	public static ArrayList<Agente> leerAgentes(ArrayList<Agente> agentes, String ruta) {
 		try {
 			FileInputStream file = new FileInputStream(new File(ruta));

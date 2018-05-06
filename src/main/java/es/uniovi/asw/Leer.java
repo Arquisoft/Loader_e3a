@@ -4,15 +4,17 @@ import java.util.ArrayList;
 
 import dao.Agente;
 
-public class Leer implements ReadList{
+public class Leer implements ReadList {
 
+	/**
+	 * Método que lee agentes del excel
+	 */
 	public ArrayList<Agente> leerAgentesdelExcel(ArrayList<Agente> agentes, String ruta) {
 		ArrayList<Agente> aux = new ArrayList<Agente>();
-		
-		try {			
+
+		try {
 			aux = Xlsx.leerAgentes(agentes, ruta);
 		} catch (Exception e) {
-			
 			System.out.println("Extensión no soportada");
 		} catch (Error e) {
 			System.out.println("Extensión no soportada");
