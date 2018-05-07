@@ -116,7 +116,7 @@ public class AplicationTest {
 		ArrayList<Agente> ciudadanos = new ArrayList<Agente>();
 		Leer leer = new Leer();
 
-		ciudadanos = leer.leerAgentesdelExcel(ciudadanos, "./src/main/java/es/uniovi/asw/agentes.xlsx");
+		 leer.leerAgentesdelExcel(ciudadanos, "./src/main/java/es/uniovi/asw/agentes.xlsx");
 
 		// probamos con el primer Agente
 		Agente c = ciudadanos.get(0);

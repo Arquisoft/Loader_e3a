@@ -22,7 +22,7 @@ public class MainPruebas {
 		ArrayList<Agente> agentes = new ArrayList<Agente>();
 		Leer leer = new Leer();
 		leer.leerAgentesdelExcel(agentes, ruta2);
-		// bbdd.insertarAgente(agentes);
+		bbdd.insertarAgente(agentes);
 		System.out.println("Listado de Agentes Cargados");
 		for (Agente agente : agentes) {
 			System.out.println(agente.toString());

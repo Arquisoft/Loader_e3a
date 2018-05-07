@@ -1,10 +1,7 @@
 package es.uniovi.asw;
 
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,55 +32,52 @@ public class Xlsx {
 		XSSFWorkbook workbook;
 		try {
 			file = new FileInputStream(ruta);
-			try {
-				workbook = new XSSFWorkbook(file);
-				XSSFSheet sheet = workbook.getSheetAt(0);
-				List<XSSFCell> user;
-				XSSFCell cell;
-				int i = 0;
-				Iterator<Row> rowIterator = sheet.iterator();
-				while (rowIterator.hasNext()) {
-					user = new ArrayList<XSSFCell>();
-					Row row = rowIterator.next();
-					Iterator<Cell> cells = row.cellIterator();
 
-					if (i > 0) {
-						while (cells.hasNext()) {
-							cell = (XSSFCell) cells.next();
-							user.add(cell);
-						}
+			workbook = new XSSFWorkbook(file);
+			XSSFSheet sheet = workbook.getSheetAt(0);
+			List<XSSFCell> user;
+			XSSFCell cell;
+			Row row;
 
-						String localizacion = "";
-						Agente agente;
-						if (user.size() != 4) {
-							int tipo = (int) Double.parseDouble(user.get(3).getRawValue());
-							localizacion = user.get(1).toString();
-							String[] s = localizacion.split(";");
-							agente = new Agente(user.get(0).toString(), s[0], s[1], user.get(2).toString(),
-									user.get(3).toString(), Csv.getHashMAp().get(tipo));
-						} else {
-							int tipo = (int) Double.parseDouble(user.get(4).getRawValue());
-							agente = new Agente(user.get(0).toString(), user.get(2).toString(), user.get(3).toString(),
-									Csv.getHashMAp().get(tipo));
-						}
-						agentes.add(agente);
-					}
+			Iterator<Row> rowIterator = sheet.iterator();
 
-					i++;
+			while (rowIterator.hasNext()) {
+				user = new ArrayList<XSSFCell>();
+				
+				row = rowIterator.next();
+				
+				Iterator<Cell> cells = row.cellIterator();
 
+				while (cells.hasNext()) {
+					cell = (XSSFCell) cells.next();
+					user.add(cell);
 				}
-				file.close();
-				workbook.close();
 
-				return agentes;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				String localizacion = "";
+				Agente agente;
+				if (user.get(1).toString().contains(";")) {
+					String tip = user.get(4).toString();
+					int tipo = (int) Double.parseDouble(tip);
+					localizacion = user.get(1).toString();
+					String[] s = localizacion.split(";");
+					agente = new Agente(user.get(0).toString(), s[0], s[1], user.get(2).toString(),
+							user.get(3).toString(), Csv.getHashMAp().get(tipo));
+				} else {
+					String tip = user.get(4).toString();
+					int tipo = (int) Double.parseDouble(tip);
+					agente = new Agente(user.get(0).toString(), user.get(2).toString(), user.get(3).toString(),
+							Csv.getHashMAp().get(tipo));
+				}
+				agentes.add(agente);
 			}
-		} catch (FileNotFoundException e) {
+
+			file.close();
+			workbook.close();
+
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-return agentes;
+		return agentes;
 	}
 }
