@@ -53,8 +53,9 @@ public class BBDD {
 	public void insertarAgente(List<Agente> agentes) {
 		MongoDatabase db = crearConexion();
 		MongoCollection<Document> table = db.getCollection("agents");
-		Document document = new Document();
+
 		for (Agente agen : agentes) {
+			Document document = new Document();
 			document.put("nombre", agen.getNombre());
 			document.put("contrasena", agen.getContrasena());
 			document.put("kind", agen.getTipo());
@@ -95,40 +96,39 @@ public class BBDD {
 
 		Document searchObject = obtenerAgente(agen.getIdentificador());
 
-	
 		Bson modifiedObject = new Document("nombre", agen.getNombre());
-	    Bson update=new Document("$set",modifiedObject);
+		Bson update = new Document("$set", modifiedObject);
 		collection.updateOne(searchObject, update);
 		searchObject = obtenerAgente(agen.getIdentificador());
-		
+
 		modifiedObject = new Document("contrasena", agen.getContrasena());
-	    update=new Document("$set",modifiedObject);
-		collection.updateOne(searchObject,  update);
+		update = new Document("$set", modifiedObject);
+		collection.updateOne(searchObject, update);
 		searchObject = obtenerAgente(agen.getIdentificador());
-		
+
 		modifiedObject = new Document("kind", agen.getTipo());
-		update=new Document("$set",modifiedObject);
+		update = new Document("$set", modifiedObject);
 		collection.updateOne(searchObject, update);
 		searchObject = obtenerAgente(agen.getIdentificador());
-		
+
 		modifiedObject = new Document("identificador", agen.getIdentificador());
-		update=new Document("$set",modifiedObject);
+		update = new Document("$set", modifiedObject);
 		collection.updateOne(searchObject, update);
 		searchObject = obtenerAgente(agen.getIdentificador());
-		
+
 		modifiedObject = new Document("longitud", agen.getLongitud());
-		update=new Document("$set",modifiedObject);
-		collection.updateOne(searchObject,  update);
+		update = new Document("$set", modifiedObject);
+		collection.updateOne(searchObject, update);
 		searchObject = obtenerAgente(agen.getIdentificador());
-		
+
 		modifiedObject = new Document("latitud", agen.getLatitud());
-		update=new Document("$set",modifiedObject);
-		collection.updateOne(searchObject,  update);
+		update = new Document("$set", modifiedObject);
+		collection.updateOne(searchObject, update);
 		searchObject = obtenerAgente(agen.getIdentificador());
-		
+
 		modifiedObject = new Document("email", agen.getEmail());
-		update=new Document("$set",modifiedObject);
-		collection.updateOne(searchObject,  update);
+		update = new Document("$set", modifiedObject);
+		collection.updateOne(searchObject, update);
 
 	}
 
