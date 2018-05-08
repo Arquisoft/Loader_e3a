@@ -1,8 +1,6 @@
-package dao;
+package Loader.dao;
 
 import java.util.Random;
-
-import es.uniovi.asw.Csv;
 
 public class Agente {
 	private String nombre, latitud, email, identificador, longitud;

@@ -1,4 +1,4 @@
-package es.uniovi.asw;
+package Loader.es.uniovi.asw;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import dao.Agente;
+import Loader.dao.Agente;
 
 public class Leer implements ReadList {
 

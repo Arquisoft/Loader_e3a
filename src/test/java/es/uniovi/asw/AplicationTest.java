@@ -6,11 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +14,11 @@ import org.bson.Document;
 import org.junit.Before;
 import org.junit.Test;
 
-
-
-import dao.Agente;
+import Loader.dao.Agente;
+import Loader.es.uniovi.asw.BBDD;
+import Loader.es.uniovi.asw.CrearCorreo;
+import Loader.es.uniovi.asw.Csv;
+import Loader.es.uniovi.asw.Leer;
 
 public class AplicationTest {
 	private BBDD bbdd;

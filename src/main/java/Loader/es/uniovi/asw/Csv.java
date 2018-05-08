@@ -1,18 +1,13 @@
-package es.uniovi.asw;
+package Loader.es.uniovi.asw;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-
-import dao.Agente;
 
 public class Csv {
 
-	static HashMap<Integer, String> csvmaestro = new HashMap<Integer, String>();
+	public static HashMap<Integer, String> csvmaestro = new HashMap<Integer, String>();
 
 	public static HashMap<Integer, String> getHashMAp() {
 		return csvmaestro;

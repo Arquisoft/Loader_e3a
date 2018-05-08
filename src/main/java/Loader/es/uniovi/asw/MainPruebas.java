@@ -1,10 +1,8 @@
-package es.uniovi.asw;
+package Loader.es.uniovi.asw;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
 
-import dao.Agente;
+import Loader.dao.Agente;
 
 public class MainPruebas {
 

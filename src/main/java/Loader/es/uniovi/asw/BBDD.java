@@ -1,28 +1,16 @@
-package es.uniovi.asw;
+package Loader.es.uniovi.asw;
 
-import java.net.UnknownHostException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
-import org.bson.BSON;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.hsqldb.jdbc.JDBCDriver;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import dao.Agente;
+import Loader.dao.Agente;
 
 public class BBDD {
 

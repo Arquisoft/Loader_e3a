@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>es.uniovi.asw</groupId>
-	<artifactId>Loader_e3a</artifactId>
+	<artifactId>Loader</artifactId>
 	<version>0.0.1</version>
-	<name>Loader_e3a</name>
+	<name>Loader</name>
 	<packaging>jar</packaging>
 	<description>Citizens SubSystem</description>
 
