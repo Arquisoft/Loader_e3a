@@ -1,7 +1,10 @@
 package es.uniovi.asw;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,37 +38,37 @@ public class Xlsx {
 
 			workbook = new XSSFWorkbook(file);
 			XSSFSheet sheet = workbook.getSheetAt(0);
-			List<XSSFCell> user;
-			XSSFCell cell;
+			List<XSSFCell> agents;
+			XSSFCell celda;
 			Row row;
 
 			Iterator<Row> rowIterator = sheet.iterator();
 
 			while (rowIterator.hasNext()) {
-				user = new ArrayList<XSSFCell>();
-				
-				row = rowIterator.next();
-				
-				Iterator<Cell> cells = row.cellIterator();
+				agents = new ArrayList<XSSFCell>();
 
-				while (cells.hasNext()) {
-					cell = (XSSFCell) cells.next();
-					user.add(cell);
+				row = rowIterator.next();
+
+				Iterator<Cell> celdas = row.cellIterator();
+
+				while (celdas.hasNext()) {
+					celda = (XSSFCell) celdas.next();
+					agents.add(celda);
 				}
 
 				String localizacion = "";
 				Agente agente;
-				if (user.get(1).toString().contains(";")) {
-					String tip = user.get(4).toString();
+				if (agents.get(1).toString().contains(";")) {
+					String tip = agents.get(4).toString();
 					int tipo = (int) Double.parseDouble(tip);
-					localizacion = user.get(1).toString();
+					localizacion = agents.get(1).toString();
 					String[] s = localizacion.split(";");
-					agente = new Agente(user.get(0).toString(), s[0], s[1], user.get(2).toString(),
-							user.get(3).toString(), Csv.getHashMAp().get(tipo));
+					agente = new Agente(agents.get(0).toString(), s[0], s[1], agents.get(2).toString(),
+							agents.get(3).toString(), Csv.getHashMAp().get(tipo));
 				} else {
-					String tip = user.get(4).toString();
+					String tip = agents.get(4).toString();
 					int tipo = (int) Double.parseDouble(tip);
-					agente = new Agente(user.get(0).toString(), user.get(2).toString(), user.get(3).toString(),
+					agente = new Agente(agents.get(0).toString(), agents.get(2).toString(), agents.get(3).toString(),
 							Csv.getHashMAp().get(tipo));
 				}
 				agentes.add(agente);
@@ -73,9 +76,27 @@ public class Xlsx {
 
 			file.close();
 			workbook.close();
+		} catch (FileNotFoundException e2) {
+			try {
+				File archivo = new File("./errores");
+				BufferedWriter bw;
+				bw = new BufferedWriter(new FileWriter(archivo));
+				bw.write(e2.getMessage());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			try {
+				File archivo = new File("./errores");
+				BufferedWriter bw;
+				bw = new BufferedWriter(new FileWriter(archivo));
+				bw.write(e.getMessage());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}
 		return agentes;
