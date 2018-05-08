@@ -37,7 +37,7 @@ public class AplicationTest {
 
 		assertNotNull(Csv.getHashMAp());
 
-		Csv.leerFicheroMaestro("./src/main/java/es/uniovi/asw/tipos.csv");
+		Csv.leerFicheroMaestro("./src/main/java/Loader/es/uniovi/asw/tipos.csv");
 		assertEquals("Person", Csv.csvmaestro.get(1));
 		assertEquals("Entity", Csv.csvmaestro.get(2));
 		assertEquals("Sensor", Csv.csvmaestro.get(3));
@@ -49,7 +49,7 @@ public class AplicationTest {
 
 		ArrayList<Agente> agentes = new ArrayList<Agente>();
 		Leer leer = new Leer();
-		leer.leerAgentesdelExcel(agentes, "./src/main/java/es/uniovi/asw/agentes.xlsx");
+		leer.leerAgentesdelExcel(agentes, "./src/main/java/Loader/es/uniovi/asw/agentes.xlsx");
 		assertEquals("78569544S", agentes.get(0).getIdentificador());
 		assertEquals("Pedro", agentes.get(0).getNombre());
 		assertEquals("Person", agentes.get(0).getTipo());
@@ -114,7 +114,7 @@ public class AplicationTest {
 		ArrayList<Agente> ciudadanos = new ArrayList<Agente>();
 		Leer leer = new Leer();
 
-		 leer.leerAgentesdelExcel(ciudadanos, "./src/main/java/es/uniovi/asw/agentes.xlsx");
+		 leer.leerAgentesdelExcel(ciudadanos, "./src/main/java/Loader/es/uniovi/asw/agentes.xlsx");
 
 		// probamos con el primer Agente
 		Agente c = ciudadanos.get(0);
